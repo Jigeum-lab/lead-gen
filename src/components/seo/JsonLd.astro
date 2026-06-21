@@ -1,0 +1,41 @@
+---
+/**
+ * 구조화 데이터(JSON-LD) — seo-geo 스킬의 "최소 세트".
+ * 전역(Organization + WebSite)을 기본 출력하고, 페이지별 추가 노드(extra)는 @graph에 합친다.
+ * AI 인용을 "보장"하지 않는 저비용 기반 인프라 — 과투자 금지(스킬 §4·§6 참조).
+ * 정적 HTML로 출력되어야 하므로 반드시 Layout의 slot="head"로 주입한다.
+ */
+interface Props {
+  /** 페이지별 추가 schema.org 노드 (예: Service, BreadcrumbList). 없으면 전역만. */
+  extra?: Record<string, unknown>[];
+}
+
+const { extra = [] } = Astro.props;
+const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
+
+const organization = {
+  "@type": "Organization",
+  "@id": `${site}/#organization`,
+  name: "LeadGenLab",
+  url: `${site}/`,
+  description:
+    "AI가 소비자의 판단을 대신하는 시대, 브랜드를 AI 응답에 노출시키는 AVO(AI Visibility Optimization) 전문 컨설팅.",
+  logo: `${site}/favicon.svg`,
+};
+
+const website = {
+  "@type": "WebSite",
+  "@id": `${site}/#website`,
+  url: `${site}/`,
+  name: "LeadGenLab",
+  inLanguage: "ko-KR",
+  publisher: { "@id": `${site}/#organization` },
+};
+
+const graph = {
+  "@context": "https://schema.org",
+  "@graph": [organization, website, ...extra],
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} is:inline />

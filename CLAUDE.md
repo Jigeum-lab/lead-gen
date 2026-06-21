@@ -29,3 +29,8 @@
 ## 리모델링 파이프라인 (권장 흐름)
 `/kickoff lead-gen` → `/research`(시장·경쟁·AVO 포지셔닝 검증) → `/prd` → `/user-flow`(IA·사이트맵) → `/wireframe` → 디자인 토큰(`theme-factory`/`@theme`) → 구현(Astro 컴포넌트) → `/qa`.
 산출물 경로: `product/lead-gen/`.
+
+## SEO/GEO·디자인시스템 (자체 제작)
+- **`seo-geo` 스킬**: 페이지/컴포넌트 작성 시 자동 참조하는 SEO+GEO 규칙(헤딩 H1 단일·비스킵, 정적 HTML 렌더링, 최소 JSON-LD, 기각된 통념 목록). 근거는 적대적 검증 딥서치(2026-06). 헤딩·메타·구조화 데이터 결정 시 항상 적용.
+- **디자인 시스템 `/ui`**: shadcn/ui(new-york) + React 아일랜드, 브랜드 토큰(`global.css`)에 매핑. 컴포넌트는 `src/components/ui/`. 쇼케이스는 `src/pages/ui.astro`(noindex). 단, **SEO/GEO 핵심 텍스트는 아일랜드에 두지 말 것**(AI 크롤러 JS 미실행 — `seo-geo` §1).
+- **SEO 기반**: `astro.config` `site`=lead-gen.team + `@astrojs/sitemap`(/ui 제외), `public/robots.txt`, `Layout.astro`(canonical·OG·Twitter·head 슬롯), `src/components/seo/JsonLd.astro`(Organization+WebSite).

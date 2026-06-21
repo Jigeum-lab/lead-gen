@@ -1,69 +1,166 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
 
 /* ────────────────────────────────────────────────────────────
-   LeadGenLab 브랜드 토큰 (theme-factory · 소스 오브 트루스)
-   라이브 사이트에서 도출: 딥 네이비/니어블랙 + 일렉트릭 블루·시안 액센트.
-   토큰 추가 시 design-system 스킬 taxonomy 준수. 색상은 항상 토큰 유틸리티로.
-   대비: primary on white = 5.4:1 (AA), ink on white = 19:1. accent(cyan)는 장식 전용.
+   LeadGenLab 디자인 시스템 — 소스 오브 트루스
+   shadcn/ui(new-york) 시맨틱 토큰을 LeadGenLab 브랜드에 매핑.
+   브랜드: 딥 네이비/니어블랙 + 일렉트릭 블루(#0057ff)·시안(#00d4ff) 액센트.
+   원칙: 색상은 항상 토큰 유틸리티(bg-primary, text-foreground …)로. hex 하드코딩 금지.
+   - shadcn `accent` = 서브틀 hover 배경(브랜드 primary-subtle). 브랜드 시안은 `cyan` 토큰.
+   - 대비: primary on white 5.4:1(AA), foreground on white 19:1.
+   /ui 라우트에서 전체 토큰·컴포넌트 쇼케이스 확인.
    ──────────────────────────────────────────────────────────── */
-@theme {
-  /* Brand — Primary (일렉트릭 블루, CTA·링크·강조) */
-  --color-primary: #0057ff;
-  --color-primary-hover: #0042cc;
-  --color-primary-active: #0036a8;
-  --color-primary-subtle: #eaf1ff; /* 강조 배경 */
-  --color-on-primary: #ffffff; /* primary 위 텍스트 */
+:root {
+  --radius: 0.75rem;
 
-  /* Brand — Accent (시안 하이라이트, 그래픽·장식 전용 — 흰 배경 텍스트 금지) */
-  --color-accent: #00d4ff;
-  --color-accent-soft: #b9f1ff;
+  /* shadcn semantic — Light (LeadGenLab 브랜드 매핑) */
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --card: #ffffff;
+  --card-foreground: #0a0a0a;
+  --popover: #ffffff;
+  --popover-foreground: #0a0a0a;
+  --primary: #0057ff;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f6f9;
+  --secondary-foreground: #16181d;
+  --muted: #f4f6f9;
+  --muted-foreground: #5b6472;
+  --accent: #eaf1ff; /* primary-subtle — on-brand hover/active 배경 */
+  --accent-foreground: #0036a8;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #0057ff;
 
-  /* Brand — Ink (니어블랙 네이비, 다크 섹션·강한 텍스트) */
-  --color-ink: #0a0a0a;
-  --color-ink-soft: #16181d;
+  /* Charts (브랜드 파생) */
+  --chart-1: #0057ff;
+  --chart-2: #00d4ff;
+  --chart-3: #0036a8;
+  --chart-4: #16a34a;
+  --chart-5: #f59e0b;
 
-  /* Surfaces */
-  --color-page: #ffffff;
-  --color-surface: #ffffff; /* 카드·패널 */
-  --color-muted: #f4f6f9; /* 섹션 구분·서브틀 배경 */
+  /* 브랜드 전용 extras (shadcn 외 — 기존 유틸 보존) */
+  --primary-hover: #0042cc;
+  --primary-active: #0036a8;
+  --primary-subtle: #eaf1ff;
+  --cyan: #00d4ff;
+  --cyan-soft: #b9f1ff;
+  --ink: #0a0a0a;
+  --ink-soft: #16181d;
+  --fg-subtle: #8a93a2;
+  --on-dark: #ffffff;
+  --on-dark-muted: #b4bcc8;
+  --border-strong: #cbd5e1;
+  --success: #16a34a;
+  --warning: #f59e0b;
+  --danger: #dc2626;
+}
 
-  /* Text */
-  --color-fg: #0a0a0a; /* 본문 */
-  --color-fg-muted: #5b6472; /* 보조 텍스트 (AA) */
-  --color-fg-subtle: #8a93a2; /* 힌트·대형 텍스트 전용 */
-  --color-on-dark: #ffffff; /* 다크 배경 위 텍스트 */
-  --color-on-dark-muted: #b4bcc8; /* 다크 배경 위 보조 */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --card: #16181d;
+  --card-foreground: #ffffff;
+  --popover: #16181d;
+  --popover-foreground: #ffffff;
+  --primary: #4d8bff;
+  --primary-foreground: #07101f;
+  --secondary: #1f2430;
+  --secondary-foreground: #ffffff;
+  --muted: #16181d;
+  --muted-foreground: #b4bcc8;
+  --accent: #18233a;
+  --accent-foreground: #cfe0ff;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #2a2e37;
+  --input: #2a2e37;
+  --ring: #4d8bff;
 
-  /* Lines */
-  --color-border: #e2e8f0;
-  --color-border-strong: #cbd5e1;
+  --primary-hover: #6ea0ff;
+  --primary-active: #3b7bff;
+  --primary-subtle: #18233a;
+  --fg-subtle: #6b7480;
+  --border-strong: #3a3f4a;
+}
 
-  /* Status */
-  --color-success: #16a34a;
-  --color-warning: #f59e0b;
-  --color-danger: #dc2626;
+@theme inline {
+  /* shadcn semantic → 유틸리티 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* 브랜드 전용 → 유틸리티 (기존 페이지 호환 + 다크 자동 반영) */
+  --color-fg: var(--foreground);
+  --color-fg-muted: var(--muted-foreground);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-on-primary: var(--primary-foreground);
+  --color-page: var(--background);
+  --color-surface: var(--card);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-active: var(--primary-active);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-cyan: var(--cyan);
+  --color-cyan-soft: var(--cyan-soft);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-on-dark: var(--on-dark);
+  --color-on-dark-muted: var(--on-dark-muted);
+  --color-border-strong: var(--border-strong);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
 
   /* Typography (한국어 기본 — Pretendard, Layout.astro에서 로드) */
   --font-sans: "Pretendard Variable", "Pretendard", "Inter", system-ui, -apple-system,
     sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
-  /* Radius (design-system 스케일) */
-  --radius-md: 0.5rem; /* 8px — 버튼·인풋 */
-  --radius-lg: 0.75rem; /* 12px — 카드 */
-  --radius-xl: 1rem; /* 16px — 패널·모달 */
-  --radius-2xl: 1.5rem; /* 24px — 대형 카드 */
+  /* Radius */
+  --radius-sm: calc(var(--radius) - 6px); /* 6px */
+  --radius-md: calc(var(--radius) - 4px); /* 8px — 버튼·인풋 */
+  --radius-lg: calc(var(--radius) - 2px); /* 10px */
+  --radius-xl: var(--radius); /* 12px — 카드 */
+  --radius-2xl: calc(var(--radius) + 12px); /* 24px — 대형 카드 */
 
   /* Shadows */
   --shadow-card: 0 1px 2px rgb(10 10 10 / 0.05), 0 8px 24px rgb(10 10 10 / 0.06);
   --shadow-lift: 0 12px 32px rgb(10 10 10 / 0.1);
 }
 
-/* 베이스: 본문 폰트·색상 기본값 */
 @layer base {
+  * {
+    border-color: var(--border);
+    outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
+  }
   body {
     font-family: var(--font-sans);
-    color: var(--color-fg);
-    background-color: var(--color-page);
+    color: var(--foreground);
+    background-color: var(--background);
   }
 }

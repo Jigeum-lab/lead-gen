@@ -25,3 +25,4 @@ pnpm-debug.log*
 
 # omc tool state
 .omc/
+.vercel

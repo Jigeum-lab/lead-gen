@@ -1,0 +1,17 @@
+{
+  "skill_name": "functional-spec",
+  "evals": [
+    {
+      "input": "기능명세서 작성해줘",
+      "expected": "prd.md에서 approved: true 확인 → 미승인 시 HARD-GATE 중단 / 승인 시 기능 추출 → F001~Fn ID 부여 → 7컬럼 표 작성 → 브레이크포인트 분기 → functional-spec.md 저장"
+    },
+    {
+      "input": "기능 ID 부여해줘",
+      "expected": "PRD Must-Have → Should-Have 순 기능 추출 → F001부터 순번 부여 → 화면-기능 매핑 테이블 → 의존성 명시"
+    },
+    {
+      "input": "엣지케이스 정의해줘",
+      "expected": "각 기능별 4종(빈 상태·에러·권한 없음·로딩) 검토 → 엣지케이스 컬럼에 기술 → 상태 분리 필요 시 F001-A/B 행 분리 → references/spec-example.md 기준 준수"
+    }
+  ]
+}

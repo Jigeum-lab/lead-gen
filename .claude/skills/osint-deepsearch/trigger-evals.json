@@ -1,0 +1,14 @@
+[
+  {"query": "딥서치해줘", "should_trigger": true},
+  {"query": "OSINT로 조사해줘", "should_trigger": true},
+  {"query": "심층 리서치 진행해줘", "should_trigger": true},
+  {"query": "글로벌 트렌드 조사해줘", "should_trigger": true},
+  {"query": "최근 6개월 동향 분석해줘", "should_trigger": true},
+  {"query": "다각도 분석 필요해", "should_trigger": true},
+  {"query": "사례 조사해줘", "should_trigger": true},
+  {"query": "교차 검증 해줘", "should_trigger": true},
+  {"query": "파이썬 버전이 뭐야?", "should_trigger": false},
+  {"query": "이 문장 번역해줘", "should_trigger": false},
+  {"query": "이 글 요약해줘", "should_trigger": false},
+  {"query": "코드 디버깅해줘", "should_trigger": false}
+]

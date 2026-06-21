@@ -1,0 +1,17 @@
+{
+  "skill_name": "user-flow",
+  "evals": [
+    {
+      "input": "IA 설계해줘",
+      "expected": "product-context.md + PRD 확인 → 페이지형/기능형 요소 분리 → GNB 1depth 확정 (알림·검색은 기능형 별도 블록) → Mermaid 사이트맵 + 범례 → ia-userflow.md 저장"
+    },
+    {
+      "input": "유저 플로우 그려줘",
+      "expected": "핵심 플로우 3~7개 선정 → 각 플로우 Mermaid flowchart → 분기 조건(로그인·권한·데이터 유무) + 에러케이스(404·403·500) + 빈 상태 필수 포함"
+    },
+    {
+      "input": "화면 흐름 설계해줘",
+      "expected": "IA 사이트맵 먼저 → 핵심 플로우 순서로 화면 명세 작성 → 화면ID 부여(PC200001/M200001) → 구성 요소 표 + 빈·에러·로딩 3종 상태 정의"
+    }
+  ]
+}

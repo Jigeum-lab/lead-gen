@@ -1,0 +1,17 @@
+{
+  "skill_name": "design-system",
+  "evals": [
+    {
+      "input": "Figma 디자인 시스템 설정해줘",
+      "expected": "컬러·타이포·간격 토큰 + 기본 컴포넌트 스펙 (brand.md 없을 때 기본값 사용)"
+    },
+    {
+      "input": "클라이언트 브랜드 색상 적용해줘",
+      "expected": "../jigeumlab-outputs/clients/{클라이언트}/brand.md 먼저 확인 후 토큰 오버라이드"
+    },
+    {
+      "input": "발표자료 슬라이드 기본 스타일 잡아줘",
+      "expected": "16:9 비율 + 발표자료 슬라이드 기본값 섹션 적용"
+    }
+  ]
+}

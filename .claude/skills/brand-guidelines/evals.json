@@ -1,0 +1,33 @@
+{
+  "skill_name": "brand-guidelines",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "이 슬라이드에 Anthropic 브랜드 컬러 적용해줘",
+      "expected_output": "Anthropic 브랜드 컬러(#141413, #faf9f5, #d97757 등)와 폰트(Poppins/Lora)가 적용됨",
+      "expectations": [
+        "브랜드 컬러 hex 값을 참조함",
+        "헤딩에 Poppins, 본문에 Lora 폰트를 적용함",
+        "Dark/Light/Accent 컬러 구분을 지킴"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Anthropic 스타일로 문서 포맷 잡아줘",
+      "expected_output": "브랜드 가이드라인에 따라 색상과 타이포그래피가 적용된 포맷 제안",
+      "expectations": [
+        "Anthropic 브랜드 컬러 팔레트를 사용함",
+        "폰트 적용 규칙(헤딩/본문 구분)을 따름"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "어떤 색이 예뻐 보여?",
+      "expected_output": "브랜드 가이드라인 스킬을 실행하지 않고 일반 조언 제공",
+      "expectations": [
+        "brand-guidelines 적용 절차를 실행하지 않음",
+        "Anthropic 브랜드 적용 요청이 아님을 인식함"
+      ]
+    }
+  ]
+}

@@ -4,27 +4,28 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout>
   <main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-6 px-6 py-24">
-    <p class="text-sm font-medium tracking-widest text-blue-600 uppercase">
+    <p class="text-sm font-medium tracking-widest text-primary uppercase">
       LeadGenLab · 리모델링
     </p>
-    <h1 class="text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+    <h1 class="text-4xl font-bold tracking-tight text-balance text-fg sm:text-5xl">
       AI 가시성 최적화(AVO)로 브랜드를 AI 추천 구조 안에 배치합니다.
     </h1>
-    <p class="text-lg text-gray-600">
-      새 디자인은 디자인 파이프라인으로 구축 예정. 콘텐츠 소스는
-      <code class="rounded bg-gray-100 px-1.5 py-0.5 text-sm">docs/source-content.md</code>.
-      셋업·작업 규칙은 <code class="rounded bg-gray-100 px-1.5 py-0.5 text-sm">CLAUDE.md</code> 참조.
+    <p class="text-lg text-fg-muted">
+      새 디자인은 디자인 파이프라인으로 구축 예정. 브랜드 토큰은
+      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">src/styles/global.css</code>의
+      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">@theme</code>, 콘텐츠 소스는
+      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">docs/source-content.md</code>.
     </p>
     <div class="flex flex-wrap gap-3 pt-2">
       <a
         href="https://open.kakao.com/me/leadgenlab"
-        class="rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700"
+        class="rounded-md bg-primary px-5 py-3 font-medium text-on-primary shadow-card transition hover:bg-primary-hover"
       >
         AI 가시성 무료 진단 요청
       </a>
       <a
         href="https://featpaper.com/l/fUgg4aBz"
-        class="rounded-lg border border-gray-300 px-5 py-3 font-medium text-gray-900 transition hover:bg-gray-50"
+        class="rounded-md border border-border px-5 py-3 font-medium text-fg transition hover:bg-muted"
       >
         회사소개서 보기
       </a>

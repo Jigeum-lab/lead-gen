@@ -1,1 +1,69 @@
 @import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────
+   LeadGenLab 브랜드 토큰 (theme-factory · 소스 오브 트루스)
+   라이브 사이트에서 도출: 딥 네이비/니어블랙 + 일렉트릭 블루·시안 액센트.
+   토큰 추가 시 design-system 스킬 taxonomy 준수. 색상은 항상 토큰 유틸리티로.
+   대비: primary on white = 5.4:1 (AA), ink on white = 19:1. accent(cyan)는 장식 전용.
+   ──────────────────────────────────────────────────────────── */
+@theme {
+  /* Brand — Primary (일렉트릭 블루, CTA·링크·강조) */
+  --color-primary: #0057ff;
+  --color-primary-hover: #0042cc;
+  --color-primary-active: #0036a8;
+  --color-primary-subtle: #eaf1ff; /* 강조 배경 */
+  --color-on-primary: #ffffff; /* primary 위 텍스트 */
+
+  /* Brand — Accent (시안 하이라이트, 그래픽·장식 전용 — 흰 배경 텍스트 금지) */
+  --color-accent: #00d4ff;
+  --color-accent-soft: #b9f1ff;
+
+  /* Brand — Ink (니어블랙 네이비, 다크 섹션·강한 텍스트) */
+  --color-ink: #0a0a0a;
+  --color-ink-soft: #16181d;
+
+  /* Surfaces */
+  --color-page: #ffffff;
+  --color-surface: #ffffff; /* 카드·패널 */
+  --color-muted: #f4f6f9; /* 섹션 구분·서브틀 배경 */
+
+  /* Text */
+  --color-fg: #0a0a0a; /* 본문 */
+  --color-fg-muted: #5b6472; /* 보조 텍스트 (AA) */
+  --color-fg-subtle: #8a93a2; /* 힌트·대형 텍스트 전용 */
+  --color-on-dark: #ffffff; /* 다크 배경 위 텍스트 */
+  --color-on-dark-muted: #b4bcc8; /* 다크 배경 위 보조 */
+
+  /* Lines */
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #f59e0b;
+  --color-danger: #dc2626;
+
+  /* Typography (한국어 기본 — Pretendard, Layout.astro에서 로드) */
+  --font-sans: "Pretendard Variable", "Pretendard", "Inter", system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Radius (design-system 스케일) */
+  --radius-md: 0.5rem; /* 8px — 버튼·인풋 */
+  --radius-lg: 0.75rem; /* 12px — 카드 */
+  --radius-xl: 1rem; /* 16px — 패널·모달 */
+  --radius-2xl: 1.5rem; /* 24px — 대형 카드 */
+
+  /* Shadows */
+  --shadow-card: 0 1px 2px rgb(10 10 10 / 0.05), 0 8px 24px rgb(10 10 10 / 0.06);
+  --shadow-lift: 0 12px 32px rgb(10 10 10 / 0.1);
+}
+
+/* 베이스: 본문 폰트·색상 기본값 */
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-fg);
+    background-color: var(--color-page);
+  }
+}

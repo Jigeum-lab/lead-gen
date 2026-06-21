@@ -1,0 +1,22 @@
+---
+/** 섹션 eyebrow 라벨/필. 라이트 미니멀의 차분한 강조. */
+interface Props {
+  variant?: "primary" | "neutral";
+  class?: string;
+}
+const { variant = "primary", class: cls = "" } = Astro.props;
+const variants = {
+  primary: "bg-primary-subtle text-primary",
+  neutral: "border border-border bg-surface text-fg-muted",
+};
+---
+
+<span
+  class:list={[
+    "inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold tracking-wide",
+    variants[variant],
+    cls,
+  ]}
+>
+  <slot />
+</span>

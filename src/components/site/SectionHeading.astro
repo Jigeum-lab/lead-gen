@@ -1,0 +1,48 @@
+---
+/**
+ * 섹션 머리말 — eyebrow + H2 + 리드 문단.
+ * SEO/GEO: 서술형 H2, 정적 HTML. heading 레벨은 as로 조정 가능(기본 h2).
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lead?: string;
+  align?: "left" | "center";
+  as?: "h1" | "h2";
+  class?: string;
+}
+const {
+  eyebrow,
+  title,
+  lead,
+  align = "left",
+  as: Tag = "h2",
+  class: cls = "",
+} = Astro.props;
+const isCenter = align === "center";
+---
+
+<div
+  class:list={[
+    "flex flex-col gap-4",
+    isCenter && "items-center text-center",
+    cls,
+  ]}
+>
+  {eyebrow && <p class="text-sm font-semibold tracking-wide text-primary">{eyebrow}</p>}
+  <Tag
+    class:list={[
+      "text-balance font-bold tracking-tight text-fg",
+      Tag === "h1" ? "text-4xl sm:text-5xl lg:text-6xl" : "text-3xl sm:text-4xl",
+    ]}
+  >
+    {title}
+  </Tag>
+  {
+    lead && (
+      <p class:list={["text-lg text-fg-muted", isCenter ? "max-w-2xl" : "max-w-3xl"]}>
+        {lead}
+      </p>
+    )
+  }
+</div>

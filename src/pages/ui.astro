@@ -1,8 +1,101 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Showcase from "../components/ui-showcase/Showcase.tsx";
+import Container from "../components/site/Container.astro";
+import Button from "../components/site/Button.astro";
+import Badge from "../components/site/Badge.astro";
+import Card from "../components/site/Card.astro";
+
+// /ui = 디자인 토큰·프리미티브 레퍼런스 — 로컬(dev) 전용.
+// 실제 마케팅 섹션(organism) 합성은 홈("/")에서 확인. 프로덕션에선 홈으로 리다이렉트.
+if (import.meta.env.PROD) {
+  return Astro.redirect("/", 302);
+}
+
+const swatches = [
+  ["primary", "bg-primary"],
+  ["primary-hover", "bg-primary-hover"],
+  ["primary-subtle", "bg-primary-subtle"],
+  ["cyan", "bg-cyan"],
+  ["ink", "bg-ink"],
+  ["fg", "bg-fg"],
+  ["fg-muted", "bg-fg-muted"],
+  ["muted", "bg-muted"],
+  ["border", "bg-border"],
+  ["success", "bg-success"],
+  ["warning", "bg-warning"],
+  ["danger", "bg-danger"],
+];
 ---
 
-<Layout title="LeadGenLab — 디자인 시스템 (/ui)" description="LeadGenLab 디자인 시스템 컴포넌트 쇼케이스. shadcn/ui · Tailwind v4 · Astro." noindex={true}>
-  <Showcase client:load />
+<Layout
+  title="LeadGenLab — 디자인 토큰 (/ui)"
+  description="LeadGenLab 라이트 미니멀 디자인 토큰·프리미티브 레퍼런스."
+  noindex={true}
+>
+  <div class="border-b border-border bg-muted/60">
+    <Container class="flex h-9 items-center justify-between text-xs text-fg-muted">
+      <span>LeadGenLab 디자인 토큰 · 라이트 미니멀</span>
+      <span class="font-mono">/ui (dev only)</span>
+    </Container>
+  </div>
+
+  <main class="py-16">
+    <Container>
+      <Badge variant="neutral">디자인 시스템</Badge>
+      <h1 class="mt-4 text-3xl font-bold tracking-tight">토큰 &amp; 프리미티브</h1>
+      <p class="mt-2 text-fg-muted">
+        색은 항상 토큰 유틸리티로. 정의는
+        <code class="rounded bg-muted px-1.5 py-0.5 text-sm">src/styles/global.css</code>의
+        <code class="rounded bg-muted px-1.5 py-0.5 text-sm">@theme</code>. 전체 섹션 합성은
+        <a href="/" class="text-primary underline-offset-4 hover:underline">홈 “/”</a>에서.
+      </p>
+
+      <!-- Colors -->
+      <h2 class="mt-12 text-sm font-semibold tracking-wide text-fg-muted uppercase">Colors</h2>
+      <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6">
+        {
+          swatches.map(([name, cls]) => (
+            <div class="space-y-2">
+              <div class={`h-14 rounded-lg ring-1 ring-inset ring-border ${cls}`} />
+              <p class="font-mono text-xs text-fg-muted">{name}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Type -->
+      <h2 class="mt-12 text-sm font-semibold tracking-wide text-fg-muted uppercase">Typography · Pretendard</h2>
+      <div class="mt-4 space-y-2">
+        <p class="text-5xl font-bold tracking-tight">Display · AI 가시성 최적화</p>
+        <p class="text-3xl font-bold tracking-tight">H2 · AVO 컨설팅</p>
+        <p class="text-xl font-semibold">H3 · 진단 → 전략 → 실행</p>
+        <p class="text-base text-fg-muted">본문 · AI가 추천하는 브랜드가 됩니다.</p>
+        <p class="font-mono text-sm text-fg-subtle">mono · src/styles/global.css</p>
+      </div>
+
+      <!-- Buttons & badges -->
+      <h2 class="mt-12 text-sm font-semibold tracking-wide text-fg-muted uppercase">Buttons &amp; Badges</h2>
+      <div class="mt-4 flex flex-wrap items-center gap-3">
+        <Button>Primary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+        <Button size="lg">Large</Button>
+        <Badge>Primary</Badge>
+        <Badge variant="neutral">Neutral</Badge>
+      </div>
+
+      <!-- Card / radius / shadow -->
+      <h2 class="mt-12 text-sm font-semibold tracking-wide text-fg-muted uppercase">Card · Radius · Shadow</h2>
+      <div class="mt-4 flex flex-wrap items-end gap-6">
+        <Card hover class="w-60">
+          <h3 class="font-semibold tracking-tight">Card</h3>
+          <p class="mt-1 text-sm text-fg-muted">헤어라인 카드 · hover 리프트.</p>
+        </Card>
+        <div class="space-y-2"><div class="size-20 rounded-md border border-border bg-surface"></div><p class="font-mono text-xs text-fg-muted">rounded-md</p></div>
+        <div class="space-y-2"><div class="size-20 rounded-2xl border border-border bg-surface"></div><p class="font-mono text-xs text-fg-muted">rounded-2xl</p></div>
+        <div class="space-y-2"><div class="size-20 rounded-xl bg-surface shadow-card"></div><p class="font-mono text-xs text-fg-muted">shadow-card</p></div>
+        <div class="space-y-2"><div class="size-20 rounded-xl bg-surface shadow-lift"></div><p class="font-mono text-xs text-fg-muted">shadow-lift</p></div>
+      </div>
+    </Container>
+  </main>
 </Layout>

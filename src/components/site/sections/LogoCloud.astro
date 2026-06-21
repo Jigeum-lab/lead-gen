@@ -1,0 +1,12 @@
+---
+import Container from "../Container.astro";
+const logos = "SK·하나·KB·두산·GC녹십자·매일유업·한컴·Speek·닥터나우·리멤버·Cloda·JB금융그룹·파파레시피·iRecipe·Clazis·Movidays·MadUp·핀다·U&I피부과·Luxent·ImIn·커리어데이·몬드리안AI·Friendly AI·캐스팅엔·Disilo·인라인AI·Kurable·클리어서울안과·서울비디치과".split("·");
+---
+
+<section class="border-y border-border bg-muted/40">
+  <Container class="py-10">
+    <ul class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm font-medium text-fg-subtle">
+      {logos.map((l) => <li>{l}</li>)}
+    </ul>
+  </Container>
+</section>

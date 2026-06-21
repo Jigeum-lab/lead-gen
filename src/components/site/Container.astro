@@ -1,0 +1,18 @@
+---
+/** 페이지 가로 정렬 컨테이너 — 라이트 미니멀의 넓은 여백 기준. */
+interface Props {
+  /** 최대 폭. 기본 6xl(72rem). narrow=4xl(콘텐츠 집중) */
+  width?: "default" | "narrow" | "wide";
+  class?: string;
+}
+const { width = "default", class: cls = "" } = Astro.props;
+const max = {
+  narrow: "max-w-3xl",
+  default: "max-w-6xl",
+  wide: "max-w-7xl",
+}[width];
+---
+
+<div class:list={["mx-auto w-full px-6 sm:px-8", max, cls]}>
+  <slot />
+</div>

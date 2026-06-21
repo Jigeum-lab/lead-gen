@@ -1,0 +1,36 @@
+---
+/**
+ * 정적 CTA 버튼 — href 있으면 <a>, 없으면 <button>.
+ * 라이트 미니멀: solid primary / hairline outline / quiet ghost.
+ */
+interface Props {
+  href?: string;
+  variant?: "primary" | "outline" | "ghost";
+  size?: "md" | "lg";
+  class?: string;
+  [key: string]: unknown;
+}
+const {
+  href,
+  variant = "primary",
+  size = "md",
+  class: cls = "",
+  ...rest
+} = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
+const variants = {
+  primary: "bg-primary text-on-primary shadow-sm hover:bg-primary-hover",
+  outline: "border border-border bg-surface text-fg hover:bg-muted",
+  ghost: "text-fg hover:bg-muted",
+};
+const sizes = {
+  md: "h-10 px-5 text-sm",
+  lg: "h-12 px-7 text-base",
+};
+const cn = [base, variants[variant], sizes[size], cls];
+const Tag = href ? "a" : "button";
+---
+
+<Tag class:list={cn} href={href} {...rest}><slot /></Tag>

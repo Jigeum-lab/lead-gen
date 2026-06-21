@@ -1,36 +1,28 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import JsonLd from "../components/seo/JsonLd.astro";
+import Navbar from "../components/site/sections/Navbar.astro";
+import Hero from "../components/site/sections/Hero.astro";
+import LogoCloud from "../components/site/sections/LogoCloud.astro";
+import Problems from "../components/site/sections/Problems.astro";
+import Framework from "../components/site/sections/Framework.astro";
+import Metrics from "../components/site/sections/Metrics.astro";
+import Faq from "../components/site/sections/Faq.astro";
+import CtaBand from "../components/site/sections/CtaBand.astro";
+import Footer from "../components/site/sections/Footer.astro";
 ---
 
 <Layout>
   <JsonLd slot="head" />
-  <main class="mx-auto flex min-h-screen max-w-3xl flex-col justify-center gap-6 px-6 py-24">
-    <p class="text-sm font-medium tracking-widest text-primary uppercase">
-      LeadGenLab · 리모델링
-    </p>
-    <h1 class="text-4xl font-bold tracking-tight text-balance text-fg sm:text-5xl">
-      AI 가시성 최적화(AVO)로 브랜드를 AI 추천 구조 안에 배치합니다.
-    </h1>
-    <p class="text-lg text-fg-muted">
-      새 디자인은 디자인 파이프라인으로 구축 예정. 브랜드 토큰은
-      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">src/styles/global.css</code>의
-      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">@theme</code>, 콘텐츠 소스는
-      <code class="rounded bg-muted px-1.5 py-0.5 text-sm">docs/source-content.md</code>.
-    </p>
-    <div class="flex flex-wrap gap-3 pt-2">
-      <a
-        href="https://open.kakao.com/me/leadgenlab"
-        class="rounded-md bg-primary px-5 py-3 font-medium text-on-primary shadow-card transition hover:bg-primary-hover"
-      >
-        AI 가시성 무료 진단 요청
-      </a>
-      <a
-        href="https://featpaper.com/l/fUgg4aBz"
-        class="rounded-md border border-border px-5 py-3 font-medium text-fg transition hover:bg-muted"
-      >
-        회사소개서 보기
-      </a>
-    </div>
+  <Navbar />
+  <main>
+    <Hero />
+    <LogoCloud />
+    <Problems />
+    <Framework />
+    <Metrics />
+    <Faq />
+    <CtaBand />
   </main>
+  <Footer />
 </Layout>

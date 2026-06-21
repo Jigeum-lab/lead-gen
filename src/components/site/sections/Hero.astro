@@ -1,0 +1,33 @@
+---
+import Container from "../Container.astro";
+import Button from "../Button.astro";
+import Badge from "../Badge.astro";
+import ParticleField from "../ParticleField.tsx";
+import { KAKAO, FEATPAPER } from "../../../lib/links";
+---
+
+<section class="relative overflow-hidden">
+  <!-- 배경: 파티클 네트워크(아일랜드, 장식) + 가독성용 페이드. 텍스트는 아래 정적 HTML -->
+  <div class="absolute inset-0 -z-10 overflow-hidden">
+    <div class="absolute inset-0 opacity-70">
+      <ParticleField client:visible count={70} />
+    </div>
+    <div class="pointer-events-none absolute inset-0 bg-gradient-to-b from-page/10 via-page/50 to-page"></div>
+    <div class="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-primary-subtle/50 to-transparent"></div>
+  </div>
+  <Container class="flex flex-col items-center gap-7 py-24 text-center sm:py-32">
+    <Badge>AI Visibility Optimization</Badge>
+    <h1 class="max-w-4xl text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl lg:text-6xl">
+      AI가 추천하는 브랜드,<br class="hidden sm:block" /> 그 구조에 브랜드를 배치합니다
+    </h1>
+    <p class="max-w-2xl text-lg text-fg-muted sm:text-xl">
+      AI 추천 최적화로 Agentic Commerce 변화에 먼저 대응하세요. AI 답변 내 브랜드 언급량과
+      점유율(SoV), 추천 순위를 측정하고 개선합니다.
+    </p>
+    <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
+      <Button href={KAKAO} size="lg">AI 가시성 무료 진단 요청</Button>
+      <Button href={FEATPAPER} size="lg" variant="outline">회사소개서 보기</Button>
+    </div>
+    <p class="text-sm text-fg-subtle">SK · 하나 · KB · 두산 등 32개+ 브랜드와 함께합니다</p>
+  </Container>
+</section>

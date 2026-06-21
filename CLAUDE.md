@@ -21,8 +21,8 @@
 
 ## Claude 셋업 주의 (중요)
 `.claude/`는 skein(Next.js+FSD+NestJS) 셋업을 **통째 복사**한 것이라 일부가 이 Astro 프로젝트와 안 맞는다.
-- **그대로 유효**: `kickoff`·`research`·`prd`·`user-flow`·`devils-advocate`·`osint-deepsearch`·`iterate`·`theme-factory`·`ui-ux-pro-max`·`product-researcher`/`ux-*`/`content-writer` 에이전트 · harness 전반.
-- **Astro용 각색 필요(코드 생성 전 주의)**: `hi-fi`(Next+shadcn 코드 생성 → Astro+Tailwind로 읽을 것), `design-system`(globals.css 기준 → 이 프로젝트는 `src/styles/global.css`), `wireframe`(stack 무관, 사용 가능).
+- **그대로 유효**: `kickoff`·`research`·`prd`·`user-flow`·`wireframe`·`devils-advocate`·`osint-deepsearch`·`iterate`·`theme-factory`·`ui-ux-pro-max`·`product-researcher`/`ux-*`/`content-writer` 에이전트 · harness 전반.
+- **Astro용으로 각색 완료**: `hi-fi`(v2.0.0 — Astro 6 + Tailwind v4 코드 생성), `design-system`(v2.0.0 — `src/styles/global.css`의 `@theme` 기준, shadcn 제거). 토큰값은 항상 `src/styles/global.css` 먼저 읽을 것.
 - **이 프로젝트에선 미사용**: `fsd-reviewer`·`nestjs-reviewer`·`db-migration`·`api-contract`·`functional-spec`(화면 기준 외)·`pptx` 및 백엔드 전제 항목. 호출하지 말 것.
 - 코드 리뷰는 일반 리뷰로(`@security-reviewer`는 폼/외부연동 생길 때 사용 가능).
 

@@ -1,44 +1,52 @@
 ---
 name: design-system
 description: >
-  Skein 디자인 시스템 토큰(컬러·타이포·간격·컴포넌트·모션) 레퍼런스.
-  코드 생성 시 참조. 실제 토큰 정의는 src/app/globals.css가 소스 오브 트루스.
-  shadcn/ui는 Base UI 기반 (Radix 아님) — asChild 대신 render prop 사용.
+  디자인 시스템 토큰(컬러·타이포·간격·컴포넌트·모션) 레퍼런스 — Astro + Tailwind v4.
+  코드 생성 시 참조. 실제 토큰 정의는 src/styles/global.css의 @theme가 소스 오브 트루스.
+  토큰은 Tailwind 유틸리티(bg-primary 등)로 자동 매핑 — hex 하드코딩 금지.
 type: encoded-preference
-version: 1.1.0
+version: 2.0.0
 when_to_use: >
   UI 컴포넌트·페이지 코드 생성 시 자동 참조. "디자인 시스템 확인해줘", "토큰 뭐 써야 해",
   컬러·타이포·스페이싱 결정 시 트리거. /hi-fi, /wireframe 실행 시 자동 포함.
-  실제 토큰값은 src/app/globals.css 파일을 항상 먼저 읽을 것.
+  실제 토큰값은 src/styles/global.css 파일을 항상 먼저 읽을 것.
 ---
 
-## Skein 스택 주의사항
+## Astro + Tailwind v4 스택
 
-- **shadcn/ui = Base UI 기반**: `asChild` ❌ → `render` prop ✅
-  ```tsx
-  <Button render={<Link href="..." />}>라벨</Button>
+- **토큰 = Tailwind v4 `@theme`**: 토큰은 `src/styles/global.css`의 `@theme {}`에 CSS 변수로 정의하면
+  Tailwind 유틸리티가 자동 생성된다. 이게 shadcn의 CSS-var 규약을 대체한다.
+  ```css
+  /* src/styles/global.css */
+  @import "tailwindcss";
+  @theme {
+    --color-primary: #2563EB;        /* → bg-primary / text-primary / border-primary */
+    --color-primary-hover: #1D4ED8;
+    --font-sans: "Pretendard", "Inter", sans-serif;  /* → font-sans */
+    --radius-lg: 12px;               /* → rounded-lg */
+  }
   ```
-- **색상 하드코딩 금지**: hex/oklch/rgb 직접 사용 금지 → CSS 토큰 유틸리티만
-  ```tsx
-  // ✅ bg-primary text-muted-foreground border-border bg-accent
-  // ❌ bg-[#7C3AED] text-[oklch(0.55_0.18_292)]
+- **색상 하드코딩 금지**: hex/oklch/rgb 직접 사용 금지 → `@theme` 토큰 유틸리티만.
+  ```html
+  <!-- ✅ --> <a class="bg-primary text-white hover:bg-primary-hover border border-border">
+  <!-- ❌ --> <a class="bg-[#2563EB]" style="color:#fff">
   ```
-- **새 컴포넌트**: `npx shadcn@latest add <name>` 으로 설치
-- **애니메이션**: `npx shadcn@latest add "https://reactbits.dev/r/<Name>-TS-TW"` (react-bits)
-- **react-bits 파일**: `src/components/<Name>.tsx` — 상단에 `"use client"` 필수
+- **컴포넌트 = `.astro`**: 재사용 UI는 `src/components/*.astro`. 인터랙션 필요 시에만
+  framework 아일랜드(`client:*`). shadcn/React·`npx shadcn add`·`"use client"` 없음.
+- **다크모드**: Tailwind `dark:` 변형 + `.dark` 셀렉터에 다크 토큰 재정의로 처리.
 
 ## Anti-Triggers
 
 - **PRD·기능명세 작성**: prd-writer 영역
 - **유저플로우·와이어프레임 설계**: ux-designer 영역
-- **실제 토큰 수정**: src/app/globals.css 직접 편집
+- **실제 토큰 수정**: src/styles/global.css의 `@theme` 직접 편집
 
 ---
 
 # Design System v1.0 (기본값)
 
 클라이언트 브랜드 가이드가 있으면 아래 기본값을 오버라이드한다.
-`product/{project}/brand.md` 참조 (없으면 Skein 기본 토큰 사용).
+`product/{project}/brand.md` 참조 (없으면 아래 기본 토큰 사용).
 
 ---
 

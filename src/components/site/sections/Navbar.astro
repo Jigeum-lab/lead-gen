@@ -21,7 +21,7 @@ const links = [
   <div class="nav-shell">
     <div class="nav-inner mx-auto flex h-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
       <a href="/" class="flex items-center" aria-label="LeadGenLab 홈">
-        <img src="/leadgenlab-wordmark.png" alt="LeadGenLab" width="1024" height="323" class="nav-logo h-5 w-auto transition-[filter] duration-300 sm:h-6" />
+        <img src="/leadgenlab-wordmark.png" alt="LeadGenLab" width="1024" height="323" class="nav-logo h-7 w-auto transition-[filter] duration-300 sm:h-8" />
       </a>
       <nav class="hidden items-center gap-7 text-sm text-fg-muted lg:flex">
         {links.map(([label, href]) => <a href={href} class="transition-colors hover:text-fg">{label}</a>)}
@@ -57,13 +57,21 @@ const links = [
 
 <style>
   /* 스크롤 시 전체폭 바 → 가운데 떠다니는 글래스 알약(pill)으로 모핑 (reactbits 스타일) */
+  /* 상단 갭은 헤더 padding-top으로(margin 상쇄 방지 — 스크롤해도 갭 일정 유지) */
+  #site-nav {
+    padding-top: 0.85rem;
+    transition: padding-top 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  #site-nav.is-scrolled {
+    padding-top: 1rem;
+  }
+
   /* reactbits 스타일: 항상 떠 있는(top gap) 투명 frosted-glass 알약. 스크롤 시 살짝 좁고 진하게. */
   .nav-shell {
     width: calc(100% - 2rem);
     max-width: 64rem;
     height: 3.75rem;
     margin-inline: auto;
-    margin-top: 0.8rem;
     border-radius: 9999px;
     background-color: color-mix(in oklab, var(--color-page) 56%, transparent);
     box-shadow: 0 10px 34px -20px rgb(10 10 10 / 0.45);
@@ -72,14 +80,12 @@ const links = [
     transition:
       max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
       height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      margin-top 0.55s cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 0.55s ease,
       background-color 0.55s ease;
   }
   #site-nav.is-scrolled .nav-shell {
     max-width: 52rem;
     height: 3.25rem;
-    margin-top: 1rem;
     box-shadow: var(--shadow-lift);
     background-color: color-mix(in oklab, var(--color-page) 72%, transparent);
   }

@@ -2,6 +2,12 @@
 import Button from "../Button.astro";
 import { KAKAO } from "../../../lib/links";
 
+interface Props {
+  /** 다크 히어로 위에 올라가는 페이지(홈) — 최상단에서 어두운 글래스 + 흰 콘텐츠 */
+  overHero?: boolean;
+}
+const { overHero = false } = Astro.props;
+
 const links = [
   ["솔루션", "/solutions/"],
   ["AVO", "/ai-visibility-optimization/"],
@@ -11,14 +17,13 @@ const links = [
 ];
 ---
 
-<header id="site-nav" class="sticky top-0 z-40">
+<header id="site-nav" class:list={["sticky top-0 z-40", overHero && "over-hero"]}>
   <div class="nav-shell">
     <div class="nav-inner mx-auto flex h-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
-      <a href="/" class="flex items-center gap-2.5">
-        <span class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold">L</span>
-        <span class="text-base font-semibold tracking-tight">LeadGenLab</span>
+      <a href="/" class="flex items-center" aria-label="LeadGenLab 홈">
+        <img src="/leadgenlab-wordmark.png" alt="LeadGenLab" width="1024" height="323" class="nav-logo h-5 w-auto transition-[filter] duration-300 sm:h-6" />
       </a>
-      <nav class="hidden items-center gap-7 text-sm text-fg-muted md:flex">
+      <nav class="hidden items-center gap-7 text-sm text-fg-muted lg:flex">
         {links.map(([label, href]) => <a href={href} class="transition-colors hover:text-fg">{label}</a>)}
       </nav>
       <div class="flex items-center gap-2">
@@ -26,7 +31,7 @@ const links = [
         <button
           id="nav-toggle"
           type="button"
-          class="flex size-9 items-center justify-center rounded-lg text-fg transition hover:bg-muted md:hidden"
+          class="flex size-9 items-center justify-center rounded-lg text-fg transition hover:bg-muted lg:hidden"
           aria-label="메뉴 열기"
           aria-expanded="false"
           aria-controls="nav-mobile"
@@ -37,8 +42,8 @@ const links = [
     </div>
   </div>
 
-  <!-- 모바일 메뉴 패널 -->
-  <div id="nav-mobile" class="mx-auto hidden max-w-6xl px-5 md:hidden">
+  <!-- 모바일·태블릿 메뉴 패널 -->
+  <div id="nav-mobile" class="mx-auto hidden max-w-6xl px-5 lg:hidden">
     <div class="mt-2 rounded-2xl border border-border bg-page/95 p-3 shadow-lift backdrop-blur-md">
       <nav class="flex flex-col">
         {links.map(([label, href]) => (
@@ -82,6 +87,23 @@ const links = [
     .nav-shell {
       transition: none;
     }
+  }
+
+  /* 다크 히어로 위(최상단, 스크롤 전): 어두운 글래스 + 흰 콘텐츠 */
+  #site-nav.over-hero:not(.is-scrolled) .nav-shell {
+    background-color: color-mix(in oklab, var(--color-ink) 26%, transparent);
+  }
+  #site-nav.over-hero:not(.is-scrolled) nav a {
+    color: rgba(255, 255, 255, 0.82);
+  }
+  #site-nav.over-hero:not(.is-scrolled) nav a:hover {
+    color: #fff;
+  }
+  #site-nav.over-hero:not(.is-scrolled) #nav-toggle {
+    color: #fff;
+  }
+  #site-nav.over-hero:not(.is-scrolled) .nav-logo {
+    filter: brightness(0) invert(1);
   }
 </style>
 

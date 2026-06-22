@@ -159,6 +159,11 @@
     border-color: var(--border);
     outline-color: color-mix(in oklab, var(--ring) 50%, transparent);
   }
+  /* 상단 오버스크롤(바운스) 시 흰 여백 노출 방지 — 다크 히어로와 맞춤 */
+  html {
+    overscroll-behavior-y: none;
+    background-color: var(--color-ink);
+  }
   body {
     font-family: var(--font-sans);
     color: var(--foreground);

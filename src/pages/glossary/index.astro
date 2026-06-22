@@ -1,0 +1,87 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import Navbar from "../../components/site/sections/Navbar.astro";
+import Footer from "../../components/site/sections/Footer.astro";
+import CtaBand from "../../components/site/sections/CtaBand.astro";
+import Container from "../../components/site/Container.astro";
+import Badge from "../../components/site/Badge.astro";
+
+const entries = (await getCollection("glossary")).sort((a, b) =>
+  a.data.term.localeCompare(b.data.term, "ko"),
+);
+const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
+
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "홈", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "AI 검색 용어집", item: `${site}/glossary/` },
+  ],
+};
+const termSet = {
+  "@type": "DefinedTermSet",
+  "@id": `${site}/glossary/#termset`,
+  name: "AI 검색 용어집 (GEO·AEO·SEO)",
+  hasDefinedTerm: entries.map((e) => ({
+    "@type": "DefinedTerm",
+    name: e.data.term,
+    description: e.data.definition,
+    url: `${site}/glossary/${e.id}/`,
+  })),
+};
+---
+
+<Layout
+  title="AI 검색 용어집 — GEO·AEO·SEO 핵심 용어 | LeadGenLab"
+  description="GEO·AEO·SEO와 AI 검색 최적화의 핵심 용어 20선. 생성형 검색, 엔티티, 스키마, E-E-A-T 등 AI Commerce 시대의 마케팅 개념을 명확히 정의합니다."
+>
+  <JsonLd slot="head" extra={[breadcrumb, termSet]} />
+  <Navbar />
+  <main>
+    <section class="border-b border-border bg-muted/40">
+      <Container class="py-20 text-center sm:py-24">
+        <Badge>AI Search Glossary</Badge>
+        <h1 class="mt-5 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
+          AI 검색 용어집
+        </h1>
+        <p class="mx-auto mt-4 max-w-2xl text-lg text-fg-muted">
+          GEO·AEO·SEO와 AI 검색 최적화의 핵심 용어 {entries.length}선. AI가 브랜드를 이해하고
+          추천하는 구조를 만드는 데 필요한 개념을 명확히 정의합니다.
+        </p>
+      </Container>
+    </section>
+
+    <section class="py-16 sm:py-20">
+      <Container>
+        <ul class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {
+            entries.map((e) => (
+              <li>
+                <a
+                  href={`/glossary/${e.id}/`}
+                  class="flex h-full flex-col rounded-2xl border border-border bg-surface p-6 transition hover:border-border-strong hover:shadow-card"
+                >
+                  <span class="inline-flex w-fit rounded-full bg-primary-subtle px-2.5 py-0.5 text-xs font-semibold text-primary">
+                    {e.data.term}
+                  </span>
+                  <h2 class="mt-3 text-base font-semibold leading-snug tracking-tight text-fg">
+                    {e.data.title}
+                  </h2>
+                  <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-fg-muted">
+                    {e.data.definition}
+                  </p>
+                  <span class="mt-4 text-sm font-medium text-primary">자세히 →</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </Container>
+    </section>
+
+    <CtaBand />
+  </main>
+  <Footer />
+</Layout>

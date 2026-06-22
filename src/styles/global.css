@@ -228,16 +228,12 @@
   display: flex;
   flex-shrink: 0;
   align-items: center;
-  gap: 3.5rem;
-  padding-right: 3.5rem;
-  min-width: 100%;
-  animation: marquee-left 38s linear infinite;
+  gap: 4rem;
+  padding-right: 4rem;
+  animation: marquee-left 60s linear infinite;
 }
 .marquee--reverse .marquee__track {
   animation-name: marquee-right;
-}
-.marquee:hover .marquee__track {
-  animation-play-state: paused;
 }
 @keyframes marquee-left {
   to {

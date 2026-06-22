@@ -2,62 +2,46 @@
 import Container from "../Container.astro";
 import clients from "../../../data/clients.json";
 
-const row1 = clients.slice(0, Math.ceil(clients.length / 2));
-const row2 = clients.slice(Math.ceil(clients.length / 2));
+const half = Math.ceil(clients.length / 2);
+// 트랙당 콘텐츠를 2배로 깔아 와이드 화면에서도 빈틈 없이 끊김 없는 루프 보장
+const row1 = [...clients.slice(0, half), ...clients.slice(0, half)];
+const row2 = [...clients.slice(half), ...clients.slice(half)];
+const rows = [
+  { items: row1, reverse: false },
+  { items: row2, reverse: true },
+];
 ---
 
-<section class="border-y border-border bg-muted/40 py-14">
+<section class="border-y border-border bg-muted/40 py-16">
   <Container>
     <p class="text-center text-sm font-medium text-fg-subtle">
       SK · 하나 · KB · 두산 등 {clients.length}개+ 브랜드와 함께합니다
     </p>
   </Container>
 
-  <div class="mt-10 space-y-6">
-    <!-- 1행: 왼쪽으로 -->
-    <div class="marquee">
-      {
-        [0, 1].map((dup) => (
-          <ul class="marquee__track" aria-hidden={dup === 1 ? "true" : undefined}>
-            {row1.map((c) => (
-              <li class="flex shrink-0 items-center">
-                <img
-                  src={c.file}
-                  alt={c.name}
-                  loading="lazy"
-                  decoding="async"
-                  width="160"
-                  height="80"
-                  class="h-11 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
-                />
-              </li>
-            ))}
-          </ul>
-        ))
-      }
-    </div>
-
-    <!-- 2행: 오른쪽으로 -->
-    <div class="marquee marquee--reverse">
-      {
-        [0, 1].map((dup) => (
-          <ul class="marquee__track" aria-hidden={dup === 1 ? "true" : undefined}>
-            {row2.map((c) => (
-              <li class="flex shrink-0 items-center">
-                <img
-                  src={c.file}
-                  alt={c.name}
-                  loading="lazy"
-                  decoding="async"
-                  width="160"
-                  height="80"
-                  class="h-11 w-auto opacity-60 grayscale transition hover:opacity-100 hover:grayscale-0"
-                />
-              </li>
-            ))}
-          </ul>
-        ))
-      }
-    </div>
+  <div class="mt-12 space-y-8">
+    {
+      rows.map((row) => (
+        <div class:list={["marquee", row.reverse && "marquee--reverse"]}>
+          {[0, 1].map((dup) => (
+            <ul class="marquee__track" aria-hidden={dup === 1 ? "true" : undefined}>
+              {row.items.map((c) => (
+                <li class="flex shrink-0 items-center">
+                  <img
+                    src={c.file}
+                    alt={c.name}
+                    loading="lazy"
+                    decoding="async"
+                    width="180"
+                    height="90"
+                    class="h-14 w-auto opacity-65 grayscale transition hover:opacity-100 hover:grayscale-0"
+                  />
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+      ))
+    }
   </div>
 </section>

@@ -6,13 +6,13 @@ import { KAKAO } from "../../../lib/links";
 
 <header
   id="site-nav"
-  class="sticky top-0 z-40 border-b border-border bg-page/80 backdrop-blur-md transition-[background-color,box-shadow] duration-300"
+  class="sticky top-0 z-40 border-b border-border bg-page/80 backdrop-blur-md"
 >
-  <Container class="flex h-16 items-center justify-between transition-[height] duration-300" data-nav-inner>
+  <Container class="flex h-full items-center justify-between">
     <a href="/" class="flex items-center gap-2.5">
       <span
         data-nav-logo
-        class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold transition-all duration-300"
+        class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold"
         >L</span
       >
       <span class="text-base font-semibold tracking-tight">LeadGenLab</span>
@@ -29,14 +29,23 @@ import { KAKAO } from "../../../lib/links";
 </header>
 
 <style>
-  /* 스크롤 시 줄어드는 상단바 — 높이·로고·그림자 트랜지션 (텍스트는 정적 HTML 그대로) */
+  /* 스크롤 시 줄어드는 상단바 — 높이는 헤더 자체에(Navbar 소유 → 스코프 정확). 링크는 정적 HTML. */
+  #site-nav {
+    height: 4rem;
+    transition:
+      height 0.3s ease,
+      background-color 0.3s ease,
+      box-shadow 0.3s ease;
+  }
   #site-nav.is-scrolled {
+    height: 3rem;
     box-shadow: var(--shadow-card);
     background-color: color-mix(in oklab, var(--color-page) 92%, transparent);
   }
-  /* data-nav-inner는 Container(별도 컴포넌트)라 :global로 매칭 */
-  #site-nav.is-scrolled :global([data-nav-inner]) {
-    height: 3rem;
+  [data-nav-logo] {
+    transition:
+      width 0.3s ease,
+      height 0.3s ease;
   }
   #site-nav.is-scrolled [data-nav-logo] {
     width: 1.6rem;
@@ -50,4 +59,9 @@ import { KAKAO } from "../../../lib/links";
   const onScroll = () => nav?.classList.toggle("is-scrolled", window.scrollY > 12);
   onScroll();
   addEventListener("scroll", onScroll, { passive: true });
+  // View Transitions 후에도 동작하도록 재바인딩
+  document.addEventListener("astro:page-load", () => {
+    const n = document.getElementById("site-nav");
+    n?.classList.toggle("is-scrolled", window.scrollY > 12);
+  });
 </script>

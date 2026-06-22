@@ -164,3 +164,25 @@
     background-color: var(--background);
   }
 }
+
+/* 스크롤 진입 리빌 — CSS only(JS 0). 지원 브라우저·모션 허용 시에만 동작.
+   미지원/모션 비선호 시 애니메이션이 안 걸려 콘텐츠는 그냥 보임(SEO·접근성 안전). */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 35%;
+    }
+    @keyframes reveal-up {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  }
+}

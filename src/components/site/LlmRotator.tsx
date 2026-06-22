@@ -13,7 +13,7 @@ const LLMS = [
   { name: "Grok", logo: "/ai/grok.svg" },
 ];
 
-export default function LlmRotator() {
+export default function LlmRotator({ dark = false }: { dark?: boolean }) {
   const [i, setI] = useState(0);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function LlmRotator() {
         className="inline-flex items-center gap-2 duration-500 animate-in fade-in slide-in-from-bottom-3"
       >
         <img src={cur.logo} alt="" width="28" height="28" className="size-6 sm:size-7" />
-        <span className="font-bold text-primary">{cur.name}</span>
+        <span className={dark ? "font-bold text-white" : "font-bold text-primary"}>{cur.name}</span>
       </span>
     </span>
   );

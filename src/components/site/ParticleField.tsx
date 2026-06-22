@@ -10,10 +10,16 @@ import { useEffect, useRef } from "react";
 interface Props {
   /** 파티클 개수 기준(면적에 따라 자동 가감). 기본 70 */
   count?: number;
+  /** 다크 배경용 밝은 색 팔레트 */
+  dark?: boolean;
 }
 
-export default function ParticleField({ count = 70 }: Props) {
+export default function ParticleField({ count = 70, dark = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const dotRGB = dark ? "120, 180, 255" : "0, 87, 255";
+  const lineRGB = dark ? "90, 160, 255" : "0, 87, 255";
+  const lineMax = dark ? 0.3 : 0.18;
+  const dotAlpha = dark ? 0.85 : 0.55;
 
   useEffect(() => {
     const canvas = canvasRef.current;

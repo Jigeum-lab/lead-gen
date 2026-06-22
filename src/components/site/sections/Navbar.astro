@@ -1,26 +1,51 @@
 ---
 import Button from "../Button.astro";
 import { KAKAO } from "../../../lib/links";
+
+const links = [
+  ["솔루션", "/solutions/"],
+  ["AVO", "/ai-visibility-optimization/"],
+  ["가격", "/pricing/"],
+  ["용어집", "/glossary/"],
+  ["회사소개", "/about/"],
+];
 ---
 
 <header id="site-nav" class="sticky top-0 z-40">
   <div class="nav-shell">
     <div class="nav-inner mx-auto flex h-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-6">
       <a href="/" class="flex items-center gap-2.5">
-        <span
-          class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold"
-          >L</span
-        >
+        <span class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold">L</span>
         <span class="text-base font-semibold tracking-tight">LeadGenLab</span>
       </a>
       <nav class="hidden items-center gap-7 text-sm text-fg-muted md:flex">
-        <a href="/solutions/" class="transition-colors hover:text-fg">솔루션</a>
-        <a href="/ai-visibility-optimization/" class="transition-colors hover:text-fg">AVO</a>
-        <a href="/pricing/" class="transition-colors hover:text-fg">가격</a>
-        <a href="/glossary/" class="transition-colors hover:text-fg">용어집</a>
-        <a href="/about/" class="transition-colors hover:text-fg">회사소개</a>
+        {links.map(([label, href]) => <a href={href} class="transition-colors hover:text-fg">{label}</a>)}
       </nav>
-      <Button href={KAKAO} size="md" class="hidden sm:inline-flex">무료 진단 요청</Button>
+      <div class="flex items-center gap-2">
+        <Button href={KAKAO} size="md" class="hidden sm:inline-flex">무료 진단 요청</Button>
+        <button
+          id="nav-toggle"
+          type="button"
+          class="flex size-9 items-center justify-center rounded-lg text-fg transition hover:bg-muted md:hidden"
+          aria-label="메뉴 열기"
+          aria-expanded="false"
+          aria-controls="nav-mobile"
+        >
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 모바일 메뉴 패널 -->
+  <div id="nav-mobile" class="mx-auto hidden max-w-6xl px-5 md:hidden">
+    <div class="mt-2 rounded-2xl border border-border bg-page/95 p-3 shadow-lift backdrop-blur-md">
+      <nav class="flex flex-col">
+        {links.map(([label, href]) => (
+          <a href={href} class="rounded-lg px-3 py-2.5 text-sm font-medium text-fg transition hover:bg-muted" data-nav-link>{label}</a>
+        ))}
+      </nav>
+      <a href={KAKAO} class="mt-2 block rounded-md bg-primary px-4 py-3 text-center text-sm font-medium text-on-primary">무료 진단 요청</a>
     </div>
   </div>
 </header>
@@ -29,7 +54,6 @@ import { KAKAO } from "../../../lib/links";
   /* 스크롤 시 전체폭 바 → 가운데 떠다니는 글래스 알약(pill)으로 모핑 (reactbits 스타일) */
   .nav-shell {
     width: 100%;
-    /* 유한 max-width라야 52rem로 '보간'되어 부드럽게 좁아짐(none이면 스냅) */
     max-width: 120rem;
     height: 4rem;
     margin-inline: auto;
@@ -68,13 +92,39 @@ import { KAKAO } from "../../../lib/links";
   }
 </style>
 
-<script>
-  const sync = () => {
-    const n = document.getElementById("site-nav");
-    n?.classList.toggle("is-scrolled", window.scrollY > 24);
-  };
-  sync();
-  addEventListener("scroll", sync, { passive: true });
-  // View Transitions 후에도 동작 보장
-  document.addEventListener("astro:page-load", sync);
+<script is:inline>
+  // 전역 1회 바인딩(View Transition 재실행 가드). 요소는 페이지마다 새로 생겨 dataset.bound로 재바인딩.
+  if (!window.__navInit) {
+    window.__navInit = true;
+    var sync = function () {
+      var n = document.getElementById("site-nav");
+      if (n) n.classList.toggle("is-scrolled", window.scrollY > 24);
+    };
+    var initMenu = function () {
+      var toggle = document.getElementById("nav-toggle");
+      var panel = document.getElementById("nav-mobile");
+      if (!toggle || !panel || toggle.dataset.bound) return;
+      toggle.dataset.bound = "1";
+      var setOpen = function (open) {
+        panel.classList.toggle("hidden", !open);
+        toggle.setAttribute("aria-expanded", String(open));
+        toggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
+      };
+      toggle.addEventListener("click", function () {
+        setOpen(panel.classList.contains("hidden"));
+      });
+      panel.querySelectorAll("[data-nav-link]").forEach(function (a) {
+        a.addEventListener("click", function () {
+          setOpen(false);
+        });
+      });
+    };
+    addEventListener("scroll", sync, { passive: true });
+    document.addEventListener("astro:page-load", function () {
+      sync();
+      initMenu();
+    });
+    sync();
+    initMenu();
+  }
 </script>

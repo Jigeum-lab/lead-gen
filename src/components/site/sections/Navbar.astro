@@ -29,6 +29,8 @@ import { KAKAO } from "../../../lib/links";
   /* 스크롤 시 전체폭 바 → 가운데 떠다니는 글래스 알약(pill)으로 모핑 (reactbits 스타일) */
   .nav-shell {
     width: 100%;
+    /* 유한 max-width라야 52rem로 '보간'되어 부드럽게 좁아짐(none이면 스냅) */
+    max-width: 120rem;
     height: 4rem;
     margin-inline: auto;
     margin-top: 0;
@@ -40,24 +42,24 @@ import { KAKAO } from "../../../lib/links";
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     transition:
-      width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      margin-top 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-      border-radius 0.4s ease,
-      border-width 0.4s ease,
-      box-shadow 0.4s ease,
-      background-color 0.4s ease;
+      width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      margin-top 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.55s ease,
+      border-width 0.55s ease,
+      box-shadow 0.55s ease,
+      background-color 0.55s ease;
   }
   #site-nav.is-scrolled .nav-shell {
-    width: calc(100% - 2rem);
+    width: calc(100% - 2.5rem);
     max-width: 52rem;
     height: 3.25rem;
-    margin-top: 0.7rem;
+    margin-top: 0.9rem;
     border-width: 1px;
     border-radius: 9999px;
     box-shadow: var(--shadow-lift);
-    background-color: color-mix(in oklab, var(--color-page) 72%, transparent);
+    background-color: color-mix(in oklab, var(--color-page) 70%, transparent);
   }
   @media (prefers-reduced-motion: reduce) {
     .nav-shell {

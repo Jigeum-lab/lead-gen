@@ -1,0 +1,218 @@
+---
+import Layout from "../layouts/Layout.astro";
+import JsonLd from "../components/seo/JsonLd.astro";
+import Navbar from "../components/site/sections/Navbar.astro";
+import Footer from "../components/site/sections/Footer.astro";
+import CtaBand from "../components/site/sections/CtaBand.astro";
+import Container from "../components/site/Container.astro";
+import Badge from "../components/site/Badge.astro";
+
+const steps = [
+  {
+    n: "01",
+    key: "infrastructure",
+    label: "Infrastructure",
+    title: "AI가 학습 가능한 ‘기반’부터 정비합니다",
+    lead: "AI는 텍스트를 많이 읽는다고 브랜드를 신뢰하지 않습니다. 웹사이트를 ‘지식 구조’로 해석하고, 정리된 출처를 우선합니다.",
+    points: [
+      "웹사이트 IA 재설계 — ‘기능/조직’이 아닌 ‘질문/비교/판단’ 중심",
+      "브랜드 엔티티 설계 + AI가 학습할 앵커 페이지 제작",
+      "Technical GEO/SEO — 크롤링·인덱싱·내부링크·캐노니컬·사이트맵",
+      "스키마 마크업 — Organization·WebSite·Service·FAQ JSON-LD",
+      "본진 수정이 어렵다면 워드프레스 ‘AI 학습 허브’ 구축",
+    ],
+  },
+  {
+    n: "02",
+    key: "content",
+    label: "Content Architecture",
+    title: "AI가 ‘비교·추천’할 콘텐츠를 설계·제작합니다",
+    lead: "콘텐츠는 유입용 글이 아니라, AI가 답변을 만들 때 참고하는 근거 데이터이자 비교 기준을 형성하는 학습 재료입니다.",
+    points: [
+      "AI 자동화 제작 안 함 — 전문성·신뢰·경험 기반 수작업",
+      "2시간+ 킥오프 인터뷰로 인하우스 수준 학습",
+      "SCI급 논문·최상위 출처 기반, 콘텐츠당 3,000~4,000자+",
+      "meta·heading·JSON-LD 코드 + 인포그래픽까지 턴키 제공",
+      "월 8~12건 구조적 누적 — 쿼리 클러스터 커버",
+    ],
+  },
+  {
+    n: "03",
+    key: "authority",
+    label: "Authority Seeding",
+    title: "외부 신뢰 채널로 ‘검증 레이어’를 만듭니다",
+    lead: "AI는 자사 채널만으로 브랜드를 추천하지 않습니다. 외부 채널에서 교차 검증되는 정보를 더 신뢰합니다.",
+    points: [
+      "위키·지식형 문서 — 브랜드 엔티티 학습 재료",
+      "언론·PR — 사실 기반 공신력 신호",
+      "UGC·커뮤니티 — 실제 사용자 기반 신뢰도 강화",
+      "버티컬 플랫폼·리뷰 — 최종 후보 선정 근거",
+    ],
+  },
+  {
+    n: "04",
+    key: "conversion",
+    label: "Conversion Alignment",
+    title: "‘추천 이후’를 설계합니다",
+    lead: "AI가 추천해도 랜딩이 추천 구조와 일치하지 않으면 매출로 이어지지 않습니다. AVO의 마지막 퍼즐입니다.",
+    points: [
+      "AI가 사용한 비교 기준을 랜딩 상단에서 재정리",
+      "‘왜 추천되었는지’ 근거를 명확히 구조화",
+      "질문 → 솔루션 → CTA로 이어지는 동선 설계",
+      "구매·문의·데모 요청으로 자연스럽게 연결",
+    ],
+  },
+  {
+    n: "05",
+    key: "measurement",
+    label: "Measurement & Optimization",
+    title: "AI 가시성은 ‘측정 가능한 점유율’입니다",
+    lead: "AVO는 캠페인이 아니라 운영 자산입니다. 시장 내 AI 답변 구조에서의 브랜드 점유율을 관리합니다.",
+    points: [
+      "AI 답변 내 브랜드 언급률 · 비교 포함률",
+      "추천 단계 후보 포함 확률 · 포지셔닝 변화",
+      "경쟁 브랜드 대비 AI Share of Voice",
+      "측정 → 분석 → 개선 → 재설계 루프 운영",
+    ],
+  },
+];
+
+const compare = [
+  ["목적", "검색 유입 증가", "AI 인용·비교·추천 구조 설계"],
+  ["관점", "키워드 중심", "질문군·쿼리 클러스터 기반"],
+  ["제작 방식", "AI 자동화·정보성", "인터뷰+리서치 기반 수작업"],
+  ["전문성 근거", "일반 검색 정보", "SCI급 논문·최상위 출처"],
+  ["엔티티 최적화", "미흡하거나 없음", "브랜드·카테고리·속성 구조화"],
+  ["스키마", "없음", "JSON-LD 구조화 데이터 포함"],
+  ["AI 인용 확률", "낮음 (일회성)", "누적형 인용·비교 포함 상승"],
+];
+
+const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "홈", item: `${site}/` },
+    { "@type": "ListItem", position: 2, name: "솔루션", item: `${site}/solutions/` },
+  ],
+};
+const service = {
+  "@type": "Service",
+  name: "AVO — AI Visibility Optimization",
+  serviceType: "AI 가시성 최적화 (GEO·AEO·SEO)",
+  provider: { "@id": `${site}/#organization` },
+  description: "AVO Framework 기반으로 AI 최적화 현황 진단 → 전략 → 실행 → 측정 → 개선을 통합 설계합니다.",
+};
+---
+
+<Layout
+  title="솔루션 — AVO·GEO·AEO 5단계 실행 | LeadGenLab"
+  description="리드젠랩의 AVO Framework: Infrastructure·Content Architecture·Authority Seeding·Conversion Alignment·Measurement까지 AI 가시성을 설계·실행·측정합니다."
+>
+  <JsonLd slot="head" extra={[breadcrumb, service]} />
+  <Navbar />
+  <main>
+    <!-- Hero -->
+    <section class="relative overflow-hidden border-b border-border">
+      <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-gradient-to-b from-primary-subtle/60 to-transparent"></div>
+      <Container width="narrow" class="py-20 text-center sm:py-24">
+        <Badge>Solutions</Badge>
+        <h1 class="mt-5 text-balance text-3xl font-bold tracking-tight text-fg sm:text-4xl lg:text-5xl">
+          AI 가시성을 확보하고, AI 유입을 실제 매출까지 연결합니다
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-fg-muted">
+          리드젠랩은 AVO Framework를 기반으로 현황 진단 → 전략 수립 → 실행 → 데이터 측정 → 반복 개선
+          구조를 통합 설계합니다.
+        </p>
+      </Container>
+    </section>
+
+    <!-- 5단계: 스텝 레일 + 섹션 -->
+    <section class="py-16 sm:py-24">
+      <Container>
+        <div class="grid gap-10 lg:grid-cols-[200px_1fr]">
+          <!-- sticky 스텝 레일 -->
+          <aside class="hidden lg:block">
+            <nav class="sticky top-28 space-y-1">
+              <p class="px-3 pb-2 text-xs font-semibold tracking-wide text-fg-subtle uppercase">
+                AVO Framework
+              </p>
+              {
+                steps.map((s) => (
+                  <a
+                    href={`#${s.key}`}
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-fg-muted transition hover:bg-muted hover:text-fg"
+                  >
+                    <span class="font-mono text-xs text-primary">{s.n}</span>
+                    {s.label}
+                  </a>
+                ))
+              }
+            </nav>
+          </aside>
+
+          <div class="space-y-6">
+            {
+              steps.map((s) => (
+                <section id={s.key} class="spotlight scroll-mt-28 rounded-3xl border border-border bg-surface p-7 sm:p-10">
+                  <div class="flex items-center gap-3">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary-subtle font-mono text-base font-bold text-primary">
+                      {s.n}
+                    </span>
+                    <span class="text-sm font-semibold tracking-wide text-fg-subtle uppercase">
+                      {s.label}
+                    </span>
+                  </div>
+                  <h2 class="mt-5 text-2xl font-bold tracking-tight text-fg">{s.title}</h2>
+                  <p class="mt-3 text-fg-muted">{s.lead}</p>
+                  <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                    {s.points.map((p) => (
+                      <li class="flex gap-2.5 text-sm leading-relaxed text-fg">
+                        <svg class="mt-0.5 size-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            }
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <!-- 비교표 -->
+    <section class="border-t border-border bg-muted/40 py-20 sm:py-24">
+      <Container width="narrow">
+        <div class="text-center">
+          <Badge variant="neutral">비교</Badge>
+          <h2 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">SEO 블로그 vs 리드젠랩 AVO 콘텐츠</h2>
+        </div>
+        <div class="mt-10 overflow-hidden rounded-2xl border border-border bg-surface">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border bg-muted/60 text-left">
+                <th class="p-4 font-semibold text-fg-muted"> </th>
+                <th class="p-4 font-semibold text-fg-muted">SEO 블로그</th>
+                <th class="p-4 font-semibold text-primary">리드젠랩 AVO 콘텐츠</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                compare.map(([k, a, b]) => (
+                  <tr class="border-b border-border last:border-0">
+                    <td class="p-4 font-medium text-fg">{k}</td>
+                    <td class="p-4 text-fg-muted">{a}</td>
+                    <td class="p-4 font-medium text-fg">{b}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </Container>
+    </section>
+
+    <CtaBand />
+  </main>
+  <Footer />
+</Layout>

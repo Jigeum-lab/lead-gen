@@ -65,6 +65,12 @@ const siteName = "LeadGenLab";
     <slot name="head" />
   </head>
   <body>
+    <!-- 건너뛰기 링크 (WCAG 2.4.1) — 키보드 포커스 시에만 노출 -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary focus:shadow-lift"
+      >본문 바로가기</a
+    >
     <!-- 페이지 전환 로딩바 (View Transitions와 함께, 전환 동안만 표시) -->
     <div id="nav-progress" transition:persist aria-hidden="true"></div>
     <slot />

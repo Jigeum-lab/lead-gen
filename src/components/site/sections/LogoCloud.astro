@@ -14,12 +14,25 @@ const rows = [
 
 <section class="border-y border-border bg-muted/40 py-16">
   <Container>
-    <p class="text-center text-sm font-medium text-fg-subtle">
-      SK · 하나 · KB · 두산 등 {clients.length}개+ 브랜드와 함께합니다
-    </p>
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      <p class="text-center text-sm font-medium text-fg-subtle">
+        SK · 하나 · KB · 두산 등 {clients.length}개+ 브랜드와 함께합니다
+      </p>
+      <!-- 자동 이동 콘텐츠 일시정지 (WCAG 2.2.2) -->
+      <button
+        id="marquee-toggle"
+        type="button"
+        aria-pressed="false"
+        aria-label="로고 흐름 일시정지"
+        class="inline-flex size-7 items-center justify-center rounded-full border border-border bg-surface text-fg-muted transition hover:text-fg"
+      >
+        <svg data-icon="pause" class="size-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+        <svg data-icon="play" class="hidden size-3.5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+    </div>
   </Container>
 
-  <div class="mt-12 space-y-8">
+  <div id="logo-marquee" class="mt-10 space-y-8">
     {
       rows.map((row) => (
         <div class:list={["marquee", row.reverse && "marquee--reverse"]}>
@@ -45,3 +58,27 @@ const rows = [
     }
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    function init() {
+      var btn = document.getElementById("marquee-toggle");
+      if (!btn || btn.dataset.bound) return;
+      btn.dataset.bound = "1";
+      btn.addEventListener("click", function () {
+        var marquees = document.querySelectorAll("#logo-marquee .marquee");
+        if (!marquees.length) return;
+        var willPause = !marquees[0].classList.contains("is-paused");
+        marquees.forEach(function (m) {
+          m.classList.toggle("is-paused", willPause);
+        });
+        btn.setAttribute("aria-pressed", String(willPause));
+        btn.setAttribute("aria-label", willPause ? "로고 흐름 재생" : "로고 흐름 일시정지");
+        btn.querySelector('[data-icon="pause"]').classList.toggle("hidden", willPause);
+        btn.querySelector('[data-icon="play"]').classList.toggle("hidden", !willPause);
+      });
+    }
+    init();
+    document.addEventListener("astro:page-load", init);
+  })();
+</script>

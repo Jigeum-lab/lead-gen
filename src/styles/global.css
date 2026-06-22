@@ -52,7 +52,7 @@
   --cyan-soft: #b9f1ff;
   --ink: #0a0a0a;
   --ink-soft: #16181d;
-  --fg-subtle: #8a93a2;
+  --fg-subtle: #6b7384; /* 흰 배경 대비 ≥4.5:1 (WCAG AA 본문) */
   --on-dark: #ffffff;
   --on-dark-muted: #b4bcc8;
   --border-strong: #cbd5e1;
@@ -163,12 +163,31 @@
   html {
     overscroll-behavior-y: none;
     background-color: var(--color-ink);
+    /* 떠있는 네비에 앵커·포커스가 가려지지 않게(WCAG 2.4.11) */
+    scroll-padding-top: 5.5rem;
   }
   body {
     font-family: var(--font-sans);
     color: var(--foreground);
     background-color: var(--background);
   }
+  /* 키보드 포커스 가시성(WCAG 2.4.7 / KWCAG) — 모든 인터랙티브 요소 */
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* 마퀴 일시정지(WCAG 2.2.2) — 사용자 토글 */
+.marquee.is-paused .marquee__track {
+  animation-play-state: paused;
 }
 
 /* ReactBits 스타일 스포트라이트 카드 — 마우스 따라 은은한 글로우.

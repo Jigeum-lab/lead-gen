@@ -39,7 +39,7 @@ const webpage = {
 <Layout title={`${entry.data.title} | LeadGenLab`} description={entry.data.intro.slice(0, 155)}>
   <JsonLd slot="head" extra={[breadcrumb, webpage]} />
   <Navbar />
-  <main>
+  <main id="main-content" tabindex="-1">
     <!-- Hero -->
     <section class="relative overflow-hidden border-b border-border">
       <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-gradient-to-b from-primary-subtle/60 to-transparent"></div>

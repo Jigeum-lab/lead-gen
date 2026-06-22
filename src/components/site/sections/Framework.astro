@@ -1,26 +1,14 @@
 ---
 import Container from "../Container.astro";
 import SectionHeading from "../SectionHeading.astro";
-
-const framework = [
-  ["01", "AI 질문 구조 분석", "소비자가 AI에게 던지는 질문 유형을 분류합니다."],
-  ["02", "브랜드 엔티티 재정의", "AI가 브랜드를 정확히 인식하도록 구조화된 엔티티 데이터를 설계합니다."],
-  ["03", "콘텐츠 아키텍처 설계", "AI가 이해하고 재사용할 수 있는 구조로 콘텐츠를 설계합니다."],
-  ["04", "Authority Seeding", "AI가 신뢰 신호로 판단할 수 있는 외부 근거를 축적합니다."],
-  ["05", "Conversion Alignment", "AI 추천 흐름 안에서 자연스럽게 전환이 일어나는 구조를 만듭니다."],
-  ["06", "Measurement & Optimization", "AI 노출과 선택 데이터를 기반으로 구조를 지속 강화합니다."],
-];
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).framework;
+const framework = t.steps;
 ---
 
 <section id="framework" class="border-y border-border bg-muted/40 py-24 sm:py-32">
   <Container>
-    <SectionHeading
-      align="center"
-      eyebrow="AVO Framework"
-      title="AI가 브랜드를 선택하게 만드는 6단계"
-      lead="무작정 노출을 늘리는 콘텐츠 살포가 아니라, AI 의사결정 퍼널 안에 브랜드를 전략적으로 배치하는 구조 설계입니다."
-      class="mx-auto"
-    />
+    <SectionHeading align="center" eyebrow={t.eyebrow} title={t.title} lead={t.lead} class="mx-auto" />
     <ol class="mx-auto mt-14 grid max-w-5xl gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
       {
         framework.map(([n, t, d]) => (

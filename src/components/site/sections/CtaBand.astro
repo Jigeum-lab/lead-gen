@@ -2,6 +2,8 @@
 import Container from "../Container.astro";
 import Button from "../Button.astro";
 import { KAKAO, FEATPAPER } from "../../../lib/links";
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).cta;
 ---
 
 <section class="py-24 sm:py-28">
@@ -10,15 +12,13 @@ import { KAKAO, FEATPAPER } from "../../../lib/links";
       <div class="pointer-events-none absolute -right-20 -top-20 size-64 rounded-full bg-primary/30 blur-3xl"></div>
       <div class="pointer-events-none absolute -bottom-24 -left-10 size-64 rounded-full bg-cyan/20 blur-3xl"></div>
       <h2 class="relative mx-auto max-w-2xl text-balance text-3xl font-bold tracking-tight text-on-dark sm:text-4xl">
-        AI가 대신 구매하는 시대, 최적화를 마치셨나요?
+        {t.title}
       </h2>
-      <p class="relative mx-auto mt-4 max-w-xl text-on-dark-muted">
-        아직 시작하지 않으셨다면, 리드젠랩이 가장 빠른 해결책을 찾아드립니다.
-      </p>
+      <p class="relative mx-auto mt-4 max-w-xl text-on-dark-muted">{t.lead}</p>
       <div class="relative mt-8 flex flex-wrap items-center justify-center gap-3">
-        <Button href={KAKAO} size="lg">AI 가시성 무료 진단 요청</Button>
+        <Button href={KAKAO} size="lg">{t.ctaPrimary}</Button>
         <Button href={FEATPAPER} size="lg" variant="ghost" class="text-on-dark hover:bg-white/10">
-          Case Study 보기
+          {t.ctaSecondary}
         </Button>
       </div>
     </div>

@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import Navbar from "../../components/site/sections/Navbar.astro";
+import Hero from "../../components/site/sections/Hero.astro";
+import TrustStats from "../../components/site/sections/TrustStats.astro";
+import LogoCloud from "../../components/site/sections/LogoCloud.astro";
+import Problems from "../../components/site/sections/Problems.astro";
+import Framework from "../../components/site/sections/Framework.astro";
+import Metrics from "../../components/site/sections/Metrics.astro";
+import Faq from "../../components/site/sections/Faq.astro";
+import CtaBand from "../../components/site/sections/CtaBand.astro";
+import Footer from "../../components/site/sections/Footer.astro";
+---
+
+<Layout
+  title="LeadGenLab — AI Visibility Optimization (AVO)"
+  description="Become the brand AI recommends. LeadGenLab designs, executes, and measures AI visibility (GEO·AEO·SEO) so your brand is cited and recommended inside ChatGPT, Perplexity, Gemini and AI answers."
+>
+  <JsonLd slot="head" />
+  <Navbar overHero />
+  <main id="main-content" tabindex="-1">
+    <Hero />
+    <TrustStats />
+    <LogoCloud />
+    <Problems />
+    <Framework />
+    <Metrics />
+    <Faq />
+    <CtaBand />
+  </main>
+  <Footer />
+</Layout>

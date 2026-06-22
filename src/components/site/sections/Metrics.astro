@@ -1,22 +1,14 @@
 ---
 import Container from "../Container.astro";
 import SectionHeading from "../SectionHeading.astro";
-
-const metrics = [
-  ["브랜드 언급률", "주요 질문군에서 AI가 브랜드를 언급하는 빈도 개선"],
-  ["비교 질문 포함률", "비교 질문에서 후보군에 포함되는 비율 상승"],
-  ["최종 추천 선택 확률", "추천 맥락에서 브랜드가 최종 선택되는 확률 증가"],
-  ["쿼리 커버리지", "산업 질문군 대비 브랜드 노출 질문 범위 확장"],
-];
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).metrics;
+const metrics = t.items;
 ---
 
 <section id="metrics" class="py-24 sm:py-32">
   <Container>
-    <SectionHeading
-      eyebrow="성과 측정"
-      title="추상적 보고가 아니라, 데이터로 증명합니다"
-      lead="AI가 실제로 브랜드를 어떻게 다루는지 구조적으로 측정하고, 측정 → 분석 → 개선 → 재설계의 루프로 점유율을 만듭니다."
-    />
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
     <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
         metrics.map(([t, d]) => (

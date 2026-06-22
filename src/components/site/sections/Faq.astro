@@ -1,34 +1,14 @@
 ---
 import Container from "../Container.astro";
 import SectionHeading from "../SectionHeading.astro";
-
-const faqs = [
-  [
-    "AI 가시성, 왜 중요한가요?",
-    "소비자는 이제 검색 결과를 일일이 클릭하지 않고, AI에게 질문하고 요약·비교·추천을 받습니다. AI Commerce 시대에는 ‘AI가 추천할 확률’이 곧 경쟁력입니다.",
-  ],
-  [
-    "AVO는 SEO와 무엇이 다른가요?",
-    "SEO가 검색 결과 상위 노출을 목표로 한다면, AVO는 AI가 답변을 생성할 때 브랜드를 비교·추천 구조 안에 포함시키는 것입니다. 두 전략은 대체 관계가 아니라 통합되어야 합니다.",
-  ],
-  [
-    "AI 답변에 우리 브랜드가 포함되는지 어떻게 확인하나요?",
-    "AI 답변 내 브랜드 언급률, 비교 포함 여부, 추천 단계 포함 여부 등을 정기적으로 분석해 구조적으로 확인합니다.",
-  ],
-  [
-    "콘텐츠를 AI 자동화로 제작하나요?",
-    "아닙니다. 인터뷰·자료 분석·구조 설계를 통해 AI 인용에 적합한 콘텐츠를 수작업으로 제작합니다.",
-  ],
-  [
-    "지금 시작하지 않으면 어떻게 되나요?",
-    "AI 학습은 누적 구조입니다. AI Commerce 환경에서는 선점 속도 자체가 전략 자산이 됩니다.",
-  ],
-];
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).faq;
+const faqs = t.items;
 ---
 
 <section id="faq" class="border-t border-border py-24 sm:py-32">
   <Container width="narrow">
-    <SectionHeading align="center" eyebrow="FAQ" title="자주 묻는 질문" class="mx-auto" />
+    <SectionHeading align="center" eyebrow={t.eyebrow} title={t.title} class="mx-auto" />
     <div class="mt-12 divide-y divide-border border-y border-border">
       {
         faqs.map(([q, a]) => (

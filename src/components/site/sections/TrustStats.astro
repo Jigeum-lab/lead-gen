@@ -1,12 +1,9 @@
 ---
 import Container from "../Container.astro";
+import { useT } from "../../../i18n/utils";
 
 // 실수치는 정적 HTML에 그대로(SEO/AEO) — JS는 0→목표 카운트업 '강화'만.
-const stats = [
-  { to: 32, suffix: "+", label: "함께한 브랜드·고객사" },
-  { to: 5, suffix: "", label: "주요 AI 엔진 커버" },
-  { to: 6, suffix: "단계", label: "AVO 프레임워크" },
-];
+const stats = useT(Astro.currentLocale).stats;
 ---
 
 <section class="border-b border-border py-14 sm:py-16">

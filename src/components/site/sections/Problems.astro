@@ -2,30 +2,14 @@
 import Container from "../Container.astro";
 import Card from "../Card.astro";
 import SectionHeading from "../SectionHeading.astro";
-
-const problems = [
-  {
-    t: "고객은 더 이상 탐색하지 않습니다",
-    d: "소비자의 정보 탐색 방식이 근본적으로 바뀌고 있습니다. 검색창이 아닌 AI 채팅창에 질문을 입력합니다.",
-  },
-  {
-    t: "AI가 비교하고 압축하고 추천합니다",
-    d: "AI가 대신 비교하고, 압축하고, 추천합니다. 고객과 브랜드가 만나는 시작점이 ‘AI 답변’으로 이동하고 있습니다.",
-  },
-  {
-    t: "장바구니까지 AI가 채우는 시대입니다",
-    d: "Agentic Commerce 시대에는 구매 결정부터 실행까지 AI가 대신합니다. 브랜드가 AI 후보군에 없으면 존재하지 않는 것과 같습니다.",
-  },
-];
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).problems;
+const problems = t.items;
 ---
 
 <section id="solution" class="py-24 sm:py-32">
   <Container>
-    <SectionHeading
-      eyebrow="왜 지금인가"
-      title="검색이 AI 대화로 바뀌고 있습니다"
-      lead="소비자는 더 이상 링크를 클릭해 비교하지 않습니다. AI에게 묻고, AI의 요약을 읽고, AI의 추천을 신뢰합니다. 브랜드가 AI 후보군에 없으면 존재하지 않는 것과 같습니다."
-    />
+    <SectionHeading eyebrow={t.eyebrow} title={t.title} lead={t.lead} />
     <div class="mt-14 grid gap-6 md:grid-cols-3">
       {
         problems.map((p, i) => (

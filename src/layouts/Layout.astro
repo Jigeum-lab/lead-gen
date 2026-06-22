@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
+import { getLang, switchLangUrl, EN_ROUTES } from "../i18n/utils";
 
 interface Props {
   title?: string;
@@ -22,16 +23,26 @@ const {
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const ogImage = new URL(image, Astro.site).href;
 const siteName = "LeadGenLab";
+
+// 다국어: html lang + hreflang 대체 링크 (영어판이 있는 라우트만 en 대체 표기)
+const lang = getLang(Astro.currentLocale);
+const koPath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+const hasEn = EN_ROUTES.has(koPath);
+const koUrl = new URL(koPath, Astro.site).href;
+const enUrl = new URL("/en" + (koPath === "/" ? "/" : koPath), Astro.site).href;
 ---
 
 <!doctype html>
-<html lang="ko">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ko" href={koUrl} />
+    {hasEn && <link rel="alternate" hreflang="en" href={enUrl} />}
+    <link rel="alternate" hreflang="x-default" href={koUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
     <!-- Pretendard (한국어 본문 폰트, --font-sans 토큰) -->
@@ -69,7 +80,7 @@ const siteName = "LeadGenLab";
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-on-primary focus:shadow-lift"
-      >본문 바로가기</a
+      >{lang === "en" ? "Skip to content" : "본문 바로가기"}</a
     >
     <!-- 페이지 전환 로딩바 (View Transitions와 함께, 전환 동안만 표시) -->
     <div id="nav-progress" transition:persist aria-hidden="true"></div>

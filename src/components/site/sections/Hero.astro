@@ -4,6 +4,8 @@ import Button from "../Button.astro";
 import ParticleField from "../ParticleField.tsx";
 import LlmRotator from "../LlmRotator.tsx";
 import { KAKAO, FEATPAPER } from "../../../lib/links";
+import { useT } from "../../../i18n/utils";
+const t = useT(Astro.currentLocale).hero;
 ---
 
 <section class="relative isolate -mt-[4.6rem] overflow-hidden bg-ink text-on-dark">
@@ -18,25 +20,22 @@ import { KAKAO, FEATPAPER } from "../../../lib/links";
 
   <Container class="flex flex-col items-center gap-7 py-28 text-center sm:py-36">
     <span class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold tracking-wide backdrop-blur">
-      AI Visibility Optimization
+      {t.badge}
     </span>
     <h1 class="max-w-4xl text-balance text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-      AI가 추천하는 브랜드,<br class="hidden sm:block" /> 그 구조에 브랜드를 배치합니다
+      {t.title1}<br class="hidden sm:block" /> {t.title2}
     </h1>
     <p class="flex flex-wrap items-center justify-center gap-x-1.5 text-xl font-semibold sm:text-2xl">
-      당신의 브랜드는 <LlmRotator client:visible dark /> 에 노출되고 있나요?
+      {t.rotatorPre} <LlmRotator client:visible dark /> {t.rotatorPost}
     </p>
-    <p class="max-w-2xl text-lg text-on-dark-muted sm:text-xl">
-      AI 추천 최적화로 Agentic Commerce 변화에 먼저 대응하세요. AI 답변 내 브랜드 언급량과
-      점유율(SoV), 추천 순위를 측정하고 개선합니다.
-    </p>
+    <p class="max-w-2xl text-lg text-on-dark-muted sm:text-xl">{t.lead}</p>
     <div class="flex flex-wrap items-center justify-center gap-3 pt-1">
-      <Button href={KAKAO} size="lg">AI 가시성 무료 진단 요청</Button>
+      <Button href={KAKAO} size="lg">{t.ctaPrimary}</Button>
       <a
         href={FEATPAPER}
         class="inline-flex h-12 items-center justify-center rounded-md border border-white/20 px-7 text-base font-medium transition hover:bg-white/10"
       >
-        회사소개서 보기
+        {t.ctaSecondary}
       </a>
     </div>
   </Container>

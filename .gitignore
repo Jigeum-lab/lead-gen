@@ -26,3 +26,7 @@ pnpm-debug.log*
 # omc tool state
 .omc/
 .vercel
+
+# 스크래핑 원본 아카이브(로컬 보관) — 큐레이션 결과는 public/·content/에
+docs/scrape/html/
+docs/scrape/assets/

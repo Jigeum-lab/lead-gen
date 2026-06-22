@@ -52,33 +52,29 @@ const links = [
 
 <style>
   /* 스크롤 시 전체폭 바 → 가운데 떠다니는 글래스 알약(pill)으로 모핑 (reactbits 스타일) */
+  /* reactbits 스타일: 항상 떠 있는(top gap) 투명 frosted-glass 알약. 스크롤 시 살짝 좁고 진하게. */
   .nav-shell {
-    width: 100%;
-    max-width: 120rem;
-    height: 4rem;
+    width: calc(100% - 2rem);
+    max-width: 64rem;
+    height: 3.75rem;
     margin-inline: auto;
-    margin-top: 0;
-    border-radius: 0;
-    /* 하드 라인(보더) 없음 — 아주 옅은 소프트 섀도로만 분리감 */
-    background-color: color-mix(in oklab, var(--color-page) 80%, transparent);
-    box-shadow: 0 2px 18px -14px rgb(10 10 10 / 0.4);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    margin-top: 0.8rem;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--color-page) 56%, transparent);
+    box-shadow: 0 10px 34px -20px rgb(10 10 10 / 0.45);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
     transition:
-      width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
       max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
       height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
       margin-top 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-      border-radius 0.55s ease,
       box-shadow 0.55s ease,
       background-color 0.55s ease;
   }
   #site-nav.is-scrolled .nav-shell {
-    width: calc(100% - 2.5rem);
     max-width: 52rem;
     height: 3.25rem;
-    margin-top: 0.9rem;
-    border-radius: 9999px;
+    margin-top: 1rem;
     box-shadow: var(--shadow-lift);
     background-color: color-mix(in oklab, var(--color-page) 72%, transparent);
   }

@@ -29,7 +29,13 @@ export default function LlmRotator({ dark = false }: { dark?: boolean }) {
         key={i}
         className="inline-flex items-center gap-2 duration-500 animate-in fade-in slide-in-from-bottom-3"
       >
-        <img src={cur.logo} alt="" width="28" height="28" className="size-6 sm:size-7" />
+        <img
+          src={cur.logo}
+          alt=""
+          width="28"
+          height="28"
+          className={dark ? "size-6 brightness-0 invert sm:size-7" : "size-6 sm:size-7"}
+        />
         <span className={dark ? "font-bold text-white" : "font-bold text-primary"}>{cur.name}</span>
       </span>
     </span>

@@ -230,7 +230,7 @@
   align-items: center;
   gap: 4rem;
   padding-right: 4rem;
-  animation: marquee-left 60s linear infinite;
+  animation: marquee-left 95s linear infinite;
 }
 .marquee--reverse .marquee__track {
   animation-name: marquee-right;

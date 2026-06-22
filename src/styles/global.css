@@ -166,6 +166,73 @@
   }
 }
 
+/* ReactBits 스타일 스포트라이트 카드 — 마우스 따라 은은한 글로우.
+   ::after를 카드 배경 위·텍스트 아래(z-index:-1 + isolation)에 두어 가독성 유지.
+   좌표는 전역 1개 pointermove 핸들러(Layout)가 --mx/--my로 주입(바닐라, 경량). */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(
+    240px circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklab, var(--color-primary) 12%, transparent),
+    transparent 64%
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spotlight:hover::after {
+    opacity: 1;
+  }
+}
+
+/* 페이지 전환 로딩바 — 상단 그라데이션 바(JS가 width/opacity 제어) */
+#nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  height: 3px;
+  width: 0;
+  opacity: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-cyan));
+  box-shadow: 0 0 10px color-mix(in oklab, var(--color-primary) 60%, transparent);
+}
+
+/* 스켈레톤 — 비동기/지연 콘텐츠 자리표시(시머). 정적 콘텐츠엔 불필요. */
+.skeleton {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    90deg,
+    var(--color-muted) 25%,
+    color-mix(in oklab, var(--color-muted) 55%, white) 37%,
+    var(--color-muted) 63%
+  );
+  background-size: 400% 100%;
+  animation: skeleton-shimmer 1.4s ease infinite;
+}
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
 /* 스크롤 진입 리빌 — CSS only(JS 0). 지원 브라우저·모션 허용 시에만 동작.
    미지원/모션 비선호 시 애니메이션이 안 걸려 콘텐츠는 그냥 보임(SEO·접근성 안전). */
 @media (prefers-reduced-motion: no-preference) {

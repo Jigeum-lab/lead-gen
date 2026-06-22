@@ -1,0 +1,56 @@
+---
+import Container from "../Container.astro";
+
+// 실수치는 정적 HTML에 그대로(SEO/AEO) — JS는 0→목표 카운트업 '강화'만.
+const stats = [
+  { to: 32, suffix: "+", label: "함께한 브랜드·고객사" },
+  { to: 5, suffix: "", label: "주요 AI 엔진 커버" },
+  { to: 6, suffix: "단계", label: "AVO 프레임워크" },
+];
+---
+
+<section class="border-b border-border py-14 sm:py-16">
+  <Container>
+    <dl class="grid grid-cols-3 gap-6 text-center">
+      {
+        stats.map((s) => (
+          <div>
+            <dt class="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
+              <span class="countup" data-to={s.to}>{s.to}</span>{s.suffix}
+            </dt>
+            <dd class="mt-2 text-sm text-fg-muted">{s.label}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Container>
+</section>
+
+<script>
+  const els = document.querySelectorAll<HTMLElement>(".countup");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (els.length && !reduce && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const en of entries) {
+          if (!en.isIntersecting) continue;
+          const el = en.target as HTMLElement;
+          io.unobserve(el);
+          const to = Number(el.dataset.to || "0");
+          const dur = 1200;
+          const start = performance.now();
+          const tick = (now: number) => {
+            const p = Math.min(1, (now - start) / dur);
+            const eased = 1 - Math.pow(1 - p, 3);
+            el.textContent = String(Math.round(to * eased));
+            if (p < 1) requestAnimationFrame(tick);
+            else el.textContent = String(to);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.4 },
+    );
+    els.forEach((e) => io.observe(e));
+  }
+</script>

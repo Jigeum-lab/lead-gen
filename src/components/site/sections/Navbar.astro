@@ -4,10 +4,17 @@ import Button from "../Button.astro";
 import { KAKAO } from "../../../lib/links";
 ---
 
-<header class="sticky top-0 z-40 border-b border-border bg-page/80 backdrop-blur-md">
-  <Container class="flex h-16 items-center justify-between">
+<header
+  id="site-nav"
+  class="sticky top-0 z-40 border-b border-border bg-page/80 backdrop-blur-md transition-[background-color,box-shadow] duration-300"
+>
+  <Container class="flex h-16 items-center justify-between transition-[height] duration-300" data-nav-inner>
     <a href="/" class="flex items-center gap-2.5">
-      <span class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold">L</span>
+      <span
+        data-nav-logo
+        class="flex size-8 items-center justify-center rounded-lg bg-primary text-on-primary text-sm font-bold transition-all duration-300"
+        >L</span
+      >
       <span class="text-base font-semibold tracking-tight">LeadGenLab</span>
     </a>
     <nav class="hidden items-center gap-8 text-sm text-fg-muted md:flex">
@@ -20,3 +27,27 @@ import { KAKAO } from "../../../lib/links";
     <Button href={KAKAO} size="md" class="hidden sm:inline-flex">무료 진단 요청</Button>
   </Container>
 </header>
+
+<style>
+  /* 스크롤 시 줄어드는 상단바 — 높이·로고·그림자 트랜지션 (텍스트는 정적 HTML 그대로) */
+  #site-nav.is-scrolled {
+    box-shadow: var(--shadow-card);
+    background-color: color-mix(in oklab, var(--color-page) 92%, transparent);
+  }
+  /* data-nav-inner는 Container(별도 컴포넌트)라 :global로 매칭 */
+  #site-nav.is-scrolled :global([data-nav-inner]) {
+    height: 3rem;
+  }
+  #site-nav.is-scrolled [data-nav-logo] {
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 0.4rem;
+  }
+</style>
+
+<script>
+  const nav = document.getElementById("site-nav");
+  const onScroll = () => nav?.classList.toggle("is-scrolled", window.scrollY > 12);
+  onScroll();
+  addEventListener("scroll", onScroll, { passive: true });
+</script>

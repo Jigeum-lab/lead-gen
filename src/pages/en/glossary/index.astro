@@ -1,42 +1,42 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import JsonLd from "../../components/seo/JsonLd.astro";
-import Navbar from "../../components/site/sections/Navbar.astro";
-import Footer from "../../components/site/sections/Footer.astro";
-import CtaBand from "../../components/site/sections/CtaBand.astro";
-import Container from "../../components/site/Container.astro";
-import Badge from "../../components/site/Badge.astro";
+import Layout from "../../../layouts/Layout.astro";
+import JsonLd from "../../../components/seo/JsonLd.astro";
+import Navbar from "../../../components/site/sections/Navbar.astro";
+import Footer from "../../../components/site/sections/Footer.astro";
+import CtaBand from "../../../components/site/sections/CtaBand.astro";
+import Container from "../../../components/site/Container.astro";
+import Badge from "../../../components/site/Badge.astro";
 
 const entries = (await getCollection("glossary"))
-  .filter((e) => e.id.startsWith("ko/"))
-  .sort((a, b) => a.data.term.localeCompare(b.data.term, "ko"));
-const slugOf = (e) => e.id.replace(/^ko\//, "");
+  .filter((e) => e.id.startsWith("en/"))
+  .sort((a, b) => a.data.term.localeCompare(b.data.term, "en"));
+const slugOf = (e) => e.id.replace(/^en\//, "");
 const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
 
 const breadcrumb = {
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "홈", item: `${site}/` },
-    { "@type": "ListItem", position: 2, name: "AI 검색 용어집", item: `${site}/glossary/` },
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/en/` },
+    { "@type": "ListItem", position: 2, name: "AI Search Glossary", item: `${site}/en/glossary/` },
   ],
 };
 const termSet = {
   "@type": "DefinedTermSet",
-  "@id": `${site}/glossary/#termset`,
-  name: "AI 검색 용어집 (GEO·AEO·SEO)",
+  "@id": `${site}/en/glossary/#termset`,
+  name: "AI Search Glossary (GEO·AEO·SEO)",
   hasDefinedTerm: entries.map((e) => ({
     "@type": "DefinedTerm",
     name: e.data.term,
     description: e.data.definition,
-    url: `${site}/glossary/${slugOf(e)}/`,
+    url: `${site}/en/glossary/${slugOf(e)}/`,
   })),
 };
 ---
 
 <Layout
-  title="AI 검색 용어집 — GEO·AEO·SEO 핵심 용어 | LeadGenLab"
-  description="GEO·AEO·SEO와 AI 검색 최적화의 핵심 용어 20선. 생성형 검색, 엔티티, 스키마, E-E-A-T 등 AI Commerce 시대의 마케팅 개념을 명확히 정의합니다."
+  title="AI Search Glossary — core GEO·AEO·SEO terms | LeadGenLab"
+  description="The 20 essential terms of GEO, AEO, SEO, and AI search optimization — generative search, entities, schema, E-E-A-T, and more, clearly defined for the AI Commerce era."
 >
   <JsonLd slot="head" extra={[breadcrumb, termSet]} />
   <Navbar />
@@ -45,11 +45,11 @@ const termSet = {
       <Container class="py-20 text-center sm:py-24">
         <Badge>AI Search Glossary</Badge>
         <h1 class="mt-5 text-balance text-4xl font-bold tracking-tight text-fg sm:text-5xl">
-          AI 검색 용어집
+          AI Search Glossary
         </h1>
         <p class="mx-auto mt-4 max-w-2xl text-lg text-fg-muted">
-          GEO·AEO·SEO와 AI 검색 최적화의 핵심 용어 {entries.length}선. AI가 브랜드를 이해하고
-          추천하는 구조를 만드는 데 필요한 개념을 명확히 정의합니다.
+          The {entries.length} essential terms of GEO, AEO, SEO, and AI search optimization — clearly
+          defined to help you build the structure AI uses to understand and recommend your brand.
         </p>
       </Container>
     </section>
@@ -61,7 +61,7 @@ const termSet = {
             entries.map((e) => (
               <li>
                 <a
-                  href={`/glossary/${slugOf(e)}/`}
+                  href={`/en/glossary/${slugOf(e)}/`}
                   class="spotlight flex h-full flex-col rounded-2xl border border-border bg-surface p-6 transition hover:border-border-strong hover:shadow-card"
                 >
                   <span class="inline-flex w-fit rounded-full bg-primary-subtle px-2.5 py-0.5 text-xs font-semibold text-primary">
@@ -73,7 +73,7 @@ const termSet = {
                   <p class="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-fg-muted">
                     {e.data.definition}
                   </p>
-                  <span class="mt-4 text-sm font-medium text-primary">자세히 →</span>
+                  <span class="mt-4 text-sm font-medium text-primary">Read more →</span>
                 </a>
               </li>
             ))

@@ -1,17 +1,17 @@
 ---
 import { getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import JsonLd from "../../components/seo/JsonLd.astro";
-import Navbar from "../../components/site/sections/Navbar.astro";
-import Footer from "../../components/site/sections/Footer.astro";
-import Container from "../../components/site/Container.astro";
-import Button from "../../components/site/Button.astro";
-import { KAKAO, FEATPAPER } from "../../lib/links";
+import Layout from "../../../layouts/Layout.astro";
+import JsonLd from "../../../components/seo/JsonLd.astro";
+import Navbar from "../../../components/site/sections/Navbar.astro";
+import Footer from "../../../components/site/sections/Footer.astro";
+import Container from "../../../components/site/Container.astro";
+import Button from "../../../components/site/Button.astro";
+import { KAKAO, FEATPAPER } from "../../../lib/links";
 
 export async function getStaticPaths() {
-  const entries = (await getCollection("glossary")).filter((e) => e.id.startsWith("ko/"));
+  const entries = (await getCollection("glossary")).filter((e) => e.id.startsWith("en/"));
   return entries.map((entry) => ({
-    params: { slug: entry.id.replace(/^ko\//, "") },
+    params: { slug: entry.id.replace(/^en\//, "") },
     props: { entry, entries },
   }));
 }
@@ -19,18 +19,17 @@ export async function getStaticPaths() {
 const { entry, entries } = Astro.props;
 const { Content } = await render(entry);
 const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
-const slugOf = (e) => e.id.replace(/^ko\//, "");
-const url = `${site}/glossary/${slugOf(entry)}/`;
+const slugOf = (e) => e.id.replace(/^en\//, "");
+const url = `${site}/en/glossary/${slugOf(entry)}/`;
 
-// 관련 용어 3개 (현재 제외, 순환)
 const idx = entries.findIndex((e) => e.id === entry.id);
 const related = [1, 2, 3].map((o) => entries[(idx + o) % entries.length]);
 
 const breadcrumb = {
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "홈", item: `${site}/` },
-    { "@type": "ListItem", position: 2, name: "용어집", item: `${site}/glossary/` },
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/en/` },
+    { "@type": "ListItem", position: 2, name: "Glossary", item: `${site}/en/glossary/` },
     { "@type": "ListItem", position: 3, name: entry.data.term, item: url },
   ],
 };
@@ -40,28 +39,26 @@ const definedTerm = {
   name: entry.data.term,
   description: entry.data.definition,
   url,
-  inDefinedTermSet: `${site}/glossary/#termset`,
+  inDefinedTermSet: `${site}/en/glossary/#termset`,
 };
 ---
 
 <Layout
-  title={`${entry.data.title} | LeadGenLab 용어집`}
+  title={`${entry.data.title} | LeadGenLab Glossary`}
   description={entry.data.definition.slice(0, 155)}
 >
   <JsonLd slot="head" extra={[breadcrumb, definedTerm]} />
   <Navbar />
   <main id="main-content" tabindex="-1">
     <Container width="narrow" class="py-12 sm:py-16">
-      <!-- breadcrumb -->
       <nav class="flex items-center gap-1.5 text-sm text-fg-muted" aria-label="breadcrumb">
-        <a href="/" class="hover:text-fg">홈</a>
+        <a href="/en/" class="hover:text-fg">Home</a>
         <span class="text-fg-subtle">/</span>
-        <a href="/glossary/" class="hover:text-fg">용어집</a>
+        <a href="/en/glossary/" class="hover:text-fg">Glossary</a>
         <span class="text-fg-subtle">/</span>
         <span class="text-fg">{entry.data.term}</span>
       </nav>
 
-      <!-- 헤더 -->
       <header class="mt-6">
         <span class="inline-flex rounded-full bg-primary-subtle px-3 py-1 text-xs font-semibold text-primary">
           {entry.data.term}
@@ -74,38 +71,35 @@ const definedTerm = {
         </p>
       </header>
 
-      <!-- 본문 -->
       <article
         class="prose prose-neutral mt-10 max-w-none prose-headings:scroll-mt-24 prose-headings:font-bold prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-12 prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-fg"
       >
         <Content />
       </article>
 
-      <!-- CTA -->
       <div class="mt-12 rounded-2xl bg-ink p-8 text-center">
         <h2 class="text-xl font-bold tracking-tight text-on-dark">
-          우리 브랜드는 AI 답변에 노출되고 있을까요?
+          Is your brand visible inside AI answers?
         </h2>
         <p class="mx-auto mt-2 max-w-md text-sm text-on-dark-muted">
-          AI 가시성 무료 진단으로 현재 노출 현황을 확인하세요.
+          Check your current exposure with a free AI visibility diagnosis.
         </p>
         <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-          <Button href={KAKAO}>무료 진단 요청</Button>
+          <Button href={KAKAO}>Free diagnosis</Button>
           <Button href={FEATPAPER} variant="ghost" class="text-on-dark hover:bg-white/10">
-            회사소개서 보기
+            View company profile
           </Button>
         </div>
       </div>
 
-      <!-- 관련 용어 -->
       <section class="mt-12">
-        <h2 class="text-sm font-semibold tracking-wide text-fg-muted uppercase">관련 용어</h2>
+        <h2 class="text-sm font-semibold tracking-wide text-fg-muted uppercase">Related terms</h2>
         <ul class="mt-4 grid gap-4 sm:grid-cols-3">
           {
             related.map((r) => (
               <li>
                 <a
-                  href={`/glossary/${slugOf(r)}/`}
+                  href={`/en/glossary/${slugOf(r)}/`}
                   class="flex h-full flex-col rounded-xl border border-border bg-surface p-4 transition hover:border-border-strong hover:shadow-card"
                 >
                   <span class="text-sm font-semibold text-fg">{r.data.term}</span>
@@ -117,8 +111,8 @@ const definedTerm = {
             ))
           }
         </ul>
-        <a href="/glossary/" class="mt-6 inline-block text-sm font-medium text-primary">
-          ← 전체 용어집 보기
+        <a href="/en/glossary/" class="mt-6 inline-block text-sm font-medium text-primary">
+          ← Back to glossary
         </a>
       </section>
     </Container>

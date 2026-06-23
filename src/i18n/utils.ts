@@ -10,7 +10,7 @@ export function useT(locale: string | undefined) {
   return ui[getLang(locale)];
 }
 
-// 영어판이 존재하는 라우트 (번역 완료 시 추가 → 404 방지). 용어집(/glossary)은 Phase 4.
+// 영어판이 존재하는 라우트. 용어집은 20개 전부 번역되어 /glossary/* 전체를 prefix로 처리.
 export const EN_ROUTES = new Set<string>([
   "/",
   "/solutions/",
@@ -21,7 +21,13 @@ export const EN_ROUTES = new Set<string>([
   "/contact/",
   "/ai-commerce/",
   "/ai-visibility-optimization/",
+  "/glossary/",
 ]);
+
+/** 해당 한국어 경로에 영어판이 있는가 */
+export function hasEnVersion(koPath: string): boolean {
+  return EN_ROUTES.has(koPath) || koPath.startsWith("/glossary/");
+}
 
 function enPath(koPath: string): string {
   return "/en" + (koPath === "/" ? "/" : koPath);
@@ -29,7 +35,7 @@ function enPath(koPath: string): string {
 
 /** 루트 기준 경로(/solutions/)를 언어에 맞게. en이고 번역된 라우트면 /en 접두, 아니면 한국어 경로 폴백. */
 export function localizePath(path: string, lang: Lang): string {
-  if (lang === "en" && EN_ROUTES.has(path)) return enPath(path);
+  if (lang === "en" && hasEnVersion(path)) return enPath(path);
   return path;
 }
 
@@ -37,5 +43,5 @@ export function localizePath(path: string, lang: Lang): string {
 export function switchLangUrl(pathname: string, target: Lang): string {
   const koPath = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
   if (target === "ko") return koPath;
-  return EN_ROUTES.has(koPath) ? enPath(koPath) : "/en/";
+  return hasEnVersion(koPath) ? enPath(koPath) : "/en/";
 }

@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { ClientRouter } from "astro:transitions";
-import { getLang, switchLangUrl, EN_ROUTES } from "../i18n/utils";
+import { getLang, hasEnVersion } from "../i18n/utils";
 
 interface Props {
   title?: string;
@@ -27,7 +27,7 @@ const siteName = "LeadGenLab";
 // 다국어: html lang + hreflang 대체 링크 (영어판이 있는 라우트만 en 대체 표기)
 const lang = getLang(Astro.currentLocale);
 const koPath = Astro.url.pathname.replace(/^\/en(?=\/|$)/, "") || "/";
-const hasEn = EN_ROUTES.has(koPath);
+const hasEn = hasEnVersion(koPath);
 const koUrl = new URL(koPath, Astro.site).href;
 const enUrl = new URL("/en" + (koPath === "/" ? "/" : koPath), Astro.site).href;
 ---

@@ -1,0 +1,214 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import Navbar from "../../components/site/sections/Navbar.astro";
+import Footer from "../../components/site/sections/Footer.astro";
+import CtaBand from "../../components/site/sections/CtaBand.astro";
+import Container from "../../components/site/Container.astro";
+import Badge from "../../components/site/Badge.astro";
+
+const steps = [
+  {
+    n: "01",
+    key: "infrastructure",
+    label: "Infrastructure",
+    title: "First, prepare a foundation AI can learn from",
+    lead: "AI doesn't trust a brand just because it reads a lot of text. It interprets your website as a ‘knowledge structure’ and prioritizes well-organized sources.",
+    points: [
+      "Website IA redesign — centered on ‘questions/comparison/judgment,’ not ‘features/org chart’",
+      "Brand entity design + anchor pages AI can learn from",
+      "Technical GEO/SEO — crawling, indexing, internal links, canonicals, sitemaps",
+      "Schema markup — Organization · WebSite · Service · FAQ JSON-LD",
+      "If the main site is hard to change, build a WordPress ‘AI learning hub’",
+    ],
+  },
+  {
+    n: "02",
+    key: "content",
+    label: "Content Architecture",
+    title: "Design and produce content AI can ‘compare and recommend’",
+    lead: "Content is not inflow copy — it is the evidence data AI references when generating answers, and the learning material that forms comparison criteria.",
+    points: [
+      "No AI-automated production — hand-crafted on expertise, trust, and experience",
+      "2+ hour kickoff interviews for in-house-level understanding",
+      "Based on SCI-grade papers and top-tier sources, 3,000–4,000+ chars each",
+      "Delivered turnkey with meta · heading · JSON-LD code and infographics",
+      "8–12 pieces per month, structurally cumulative — covering query clusters",
+    ],
+  },
+  {
+    n: "03",
+    key: "authority",
+    label: "Authority Seeding",
+    title: "Build a ‘verification layer’ through external trust channels",
+    lead: "AI doesn't recommend a brand from its own channels alone. It trusts information cross-verified across external channels more.",
+    points: [
+      "Wiki & knowledge documents — material for brand entity learning",
+      "Press & PR — fact-based authority signals",
+      "UGC & community — trust reinforced by real users",
+      "Vertical platforms & reviews — evidence for final candidate selection",
+    ],
+  },
+  {
+    n: "04",
+    key: "conversion",
+    label: "Conversion Alignment",
+    title: "Design what happens ‘after the recommendation’",
+    lead: "Even when AI recommends you, if the landing page doesn't match the recommendation structure, it won't turn into revenue. This is AVO's final piece.",
+    points: [
+      "Restate the comparison criteria AI used at the top of the landing page",
+      "Clearly structure ‘why you were recommended’",
+      "Design a question → solution → CTA path",
+      "Connect naturally to purchase, inquiry, or demo requests",
+    ],
+  },
+  {
+    n: "05",
+    key: "measurement",
+    label: "Measurement & Optimization",
+    title: "AI visibility is ‘measurable share’",
+    lead: "AVO is an operating asset, not a campaign. We manage your brand's share within the market's AI answer structures.",
+    points: [
+      "Brand mention rate · comparison inclusion rate in AI answers",
+      "Recommendation-stage inclusion probability · positioning shifts",
+      "AI Share of Voice versus competitors",
+      "Run a measure → analyze → improve → redesign loop",
+    ],
+  },
+];
+
+const compare = [
+  ["Goal", "More search traffic", "Designing AI citation/comparison/recommendation structure"],
+  ["Perspective", "Keyword-centered", "Based on question sets and query clusters"],
+  ["Production", "AI-automated, informational", "Hand-crafted on interviews + research"],
+  ["Expertise basis", "General search info", "SCI-grade papers, top-tier sources"],
+  ["Entity optimization", "Weak or absent", "Brand · category · attribute structuring"],
+  ["Schema", "None", "Includes JSON-LD structured data"],
+  ["AI citation odds", "Low (one-off)", "Cumulative citation and comparison inclusion"],
+];
+
+const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/en/` },
+    { "@type": "ListItem", position: 2, name: "Solutions", item: `${site}/en/solutions/` },
+  ],
+};
+const service = {
+  "@type": "Service",
+  name: "AVO — AI Visibility Optimization",
+  serviceType: "AI Visibility Optimization (GEO·AEO·SEO)",
+  provider: { "@id": `${site}/#organization` },
+  description: "Built on the AVO Framework: diagnosis → strategy → execution → measurement → improvement.",
+};
+---
+
+<Layout
+  title="Solutions — the AVO·GEO·AEO five-step execution | LeadGenLab"
+  description="LeadGenLab's AVO Framework: Infrastructure, Content Architecture, Authority Seeding, Conversion Alignment, and Measurement — we design, execute, and measure AI visibility."
+>
+  <JsonLd slot="head" extra={[breadcrumb, service]} />
+  <Navbar />
+  <main id="main-content" tabindex="-1">
+    <section class="relative overflow-hidden border-b border-border">
+      <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-gradient-to-b from-primary-subtle/60 to-transparent"></div>
+      <Container width="narrow" class="py-20 text-center sm:py-24">
+        <Badge>Solutions</Badge>
+        <h1 class="mt-5 text-balance text-3xl font-bold tracking-tight text-fg sm:text-4xl lg:text-5xl">
+          Secure AI visibility — and connect AI inflow to real revenue
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-fg-muted">
+          On the AVO Framework, LeadGenLab integrates diagnosis → strategy → execution → measurement →
+          continuous improvement.
+        </p>
+      </Container>
+    </section>
+
+    <section class="py-16 sm:py-24">
+      <Container>
+        <div class="grid gap-10 lg:grid-cols-[200px_1fr]">
+          <aside class="hidden lg:block">
+            <nav class="sticky top-28 space-y-1">
+              <p class="px-3 pb-2 text-xs font-semibold tracking-wide text-fg-subtle uppercase">
+                AVO Framework
+              </p>
+              {
+                steps.map((s) => (
+                  <a
+                    href={`#${s.key}`}
+                    class="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-fg-muted transition hover:bg-muted hover:text-fg"
+                  >
+                    <span class="font-mono text-xs text-primary">{s.n}</span>
+                    {s.label}
+                  </a>
+                ))
+              }
+            </nav>
+          </aside>
+
+          <div class="space-y-6">
+            {
+              steps.map((s) => (
+                <section id={s.key} class="spotlight scroll-mt-28 rounded-3xl border border-border bg-surface p-7 sm:p-10">
+                  <div class="flex items-center gap-3">
+                    <span class="flex size-11 items-center justify-center rounded-xl bg-primary-subtle font-mono text-base font-bold text-primary">
+                      {s.n}
+                    </span>
+                    <span class="text-sm font-semibold tracking-wide text-fg-subtle uppercase">
+                      {s.label}
+                    </span>
+                  </div>
+                  <h2 class="mt-5 text-2xl font-bold tracking-tight text-fg">{s.title}</h2>
+                  <p class="mt-3 text-fg-muted">{s.lead}</p>
+                  <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+                    {s.points.map((p) => (
+                      <li class="flex gap-2.5 text-sm leading-relaxed text-fg">
+                        <svg class="mt-0.5 size-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            }
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-muted/40 py-20 sm:py-24">
+      <Container width="narrow">
+        <div class="text-center">
+          <Badge variant="neutral">Comparison</Badge>
+          <h2 class="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">SEO blog vs. LeadGenLab AVO content</h2>
+        </div>
+        <div class="mt-10 overflow-hidden rounded-2xl border border-border bg-surface">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-border bg-muted/60 text-left">
+                <th class="p-4 font-semibold text-fg-muted"> </th>
+                <th class="p-4 font-semibold text-fg-muted">SEO blog</th>
+                <th class="p-4 font-semibold text-primary">LeadGenLab AVO content</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                compare.map(([k, a, b]) => (
+                  <tr class="border-b border-border last:border-0">
+                    <td class="p-4 font-medium text-fg">{k}</td>
+                    <td class="p-4 text-fg-muted">{a}</td>
+                    <td class="p-4 font-medium text-fg">{b}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </Container>
+    </section>
+
+    <CtaBand />
+  </main>
+  <Footer />
+</Layout>

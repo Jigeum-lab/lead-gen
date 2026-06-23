@@ -1,0 +1,154 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import JsonLd from "../../components/seo/JsonLd.astro";
+import Navbar from "../../components/site/sections/Navbar.astro";
+import Footer from "../../components/site/sections/Footer.astro";
+import CtaBand from "../../components/site/sections/CtaBand.astro";
+import Container from "../../components/site/Container.astro";
+import Badge from "../../components/site/Badge.astro";
+import Button from "../../components/site/Button.astro";
+import { KAKAO } from "../../lib/links";
+
+const tiers = [
+  {
+    n: "01",
+    label: "Infrastructure",
+    title: "Build the foundation AI learns your brand from",
+    price: "₩3,000,000~",
+    unit: "Initial build (not re-billed monthly)",
+    points: ["AI visibility diagnosis", "Website IA redesign", "Brand entity structure design", "Technical GEO/SEO audit", "Schema markup · internal links", "AI learning hub (WordPress, if needed)"],
+  },
+  {
+    n: "02",
+    label: "Content Architecture",
+    title: "Produce content AI cites and recommends",
+    price: "₩5,000,000~ / mo",
+    unit: "3+ months of accumulation recommended",
+    featured: true,
+    points: ["Query cluster analysis", "8–12 pieces/mo (30–50 total seeded)", "Based on in-depth staff interviews", "SCI-grade · top-tier source research", "Delivered with meta · H · JSON-LD", "Infographic · thumbnail design"],
+  },
+  {
+    n: "03",
+    label: "Authority Seeding",
+    title: "Seed external trust-channel UGC",
+    price: "₩500,000~ each",
+    unit: "Varies by channel and country scope",
+    points: ["Wiki document design & publishing", "Press & PR releases", "Vertical platform review seeding", "UGC strategy & content seeding"],
+  },
+  {
+    n: "04",
+    label: "Conversion Alignment",
+    title: "Design post-recommendation conversion",
+    price: "On request",
+    unit: "Depends on funnel optimization scope",
+    points: ["Landing structure improvement", "Post-comparison CTA redesign", "Post-inflow purchase path optimization", "Decision-criteria clarification"],
+  },
+  {
+    n: "05",
+    label: "Measurement",
+    title: "Measure and improve AI share",
+    price: "₩500,000~ / mo",
+    unit: "Continuous operation",
+    points: ["Brand mention-rate monitoring", "Comparison inclusion analysis", "SOV vs. competitors", "Monthly report · improvement plan"],
+  },
+];
+
+const site = Astro.site?.href.replace(/\/$/, "") ?? "https://lead-gen.team";
+const breadcrumb = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${site}/en/` },
+    { "@type": "ListItem", position: 2, name: "Pricing", item: `${site}/en/pricing/` },
+  ],
+};
+---
+
+<Layout
+  title="Pricing — by AVO execution area | LeadGenLab"
+  description="AVO Framework pricing by execution area: Infrastructure ₩3,000,000~, content ₩5,000,000~/mo, Authority Seeding ₩500,000~ each, measurement ₩500,000~/mo. For a tailored quote, start with a free diagnosis."
+>
+  <JsonLd slot="head" extra={[breadcrumb]} />
+  <Navbar />
+  <main id="main-content" tabindex="-1">
+    <section class="relative overflow-hidden border-b border-border">
+      <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-full bg-gradient-to-b from-primary-subtle/60 to-transparent"></div>
+      <Container width="narrow" class="py-20 text-center sm:py-24">
+        <Badge>Pricing</Badge>
+        <h1 class="mt-5 text-balance text-3xl font-bold tracking-tight text-fg sm:text-4xl lg:text-5xl">
+          Claim your brand's share inside AI answers — now
+        </h1>
+        <p class="mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-fg-muted">
+          Diagnosis → strategy → execution → measurement → improvement on the AVO Framework. Below are
+          approximate amounts per execution area; a precise quote depends on your situation, so reach out.
+        </p>
+        <div class="mt-8">
+          <Button href={KAKAO} size="lg">Request a free AI visibility diagnosis</Button>
+        </div>
+      </Container>
+    </section>
+
+    <section class="py-16 sm:py-20">
+      <Container>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {
+            tiers.map((t) => (
+              <div
+                class:list={[
+                  "spotlight flex flex-col rounded-3xl border bg-surface p-7",
+                  t.featured ? "border-primary ring-1 ring-primary/30" : "border-border",
+                ]}
+              >
+                <div class="flex items-center justify-between">
+                  <span class="text-sm font-semibold tracking-wide text-fg-subtle uppercase">{t.label}</span>
+                  <span class="font-mono text-xs text-primary">{t.n}</span>
+                </div>
+                <h2 class="mt-3 text-lg font-bold tracking-tight text-fg">{t.title}</h2>
+                <div class="mt-4">
+                  <span class="text-2xl font-bold tracking-tight text-primary">{t.price}</span>
+                  <p class="mt-1 text-xs text-fg-subtle">{t.unit}</p>
+                </div>
+                <ul class="mt-5 flex-1 space-y-2.5 border-t border-border pt-5">
+                  {t.points.map((p) => (
+                    <li class="flex gap-2 text-sm leading-relaxed text-fg-muted">
+                      <svg class="mt-0.5 size-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+
+          <div class="flex flex-col justify-center rounded-3xl bg-ink p-8 text-on-dark">
+            <span class="text-sm font-semibold tracking-wide text-on-dark-muted uppercase">Enterprise</span>
+            <h2 class="mt-3 text-lg font-bold tracking-tight">Integrated operation (infra + content + trust + measurement)</h2>
+            <p class="mt-4 text-2xl font-bold tracking-tight">₩5,000,000 – 20,000,000 / mo</p>
+            <p class="mt-1 text-xs text-on-dark-muted">Avg. ₩15M – 60M over 3 months</p>
+            <p class="mt-5 border-t border-white/15 pt-5 text-sm leading-relaxed text-on-dark-muted">
+              A strategist, technical SEO engineer, researcher, interview-based editor, designer, and data analyst work in parallel.
+            </p>
+            <div class="mt-6">
+              <Button href={KAKAO} variant="ghost" class="text-on-dark hover:bg-white/10">Request a strategy consultation</Button>
+            </div>
+          </div>
+        </div>
+      </Container>
+    </section>
+
+    <section class="border-t border-border bg-muted/40 py-20 text-center sm:py-24">
+      <Container width="narrow">
+        <Badge variant="neutral">Why now</Badge>
+        <h2 class="mt-4 text-balance text-2xl font-bold tracking-tight sm:text-3xl">
+          AI chooses the brand it learned first
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-fg-muted">
+          AI learning is cumulative. A brand that starts a year earlier secures recommendation share first.
+          Start two years late and the cost of dislodging competitors is far higher.
+        </p>
+      </Container>
+    </section>
+
+    <CtaBand />
+  </main>
+  <Footer />
+</Layout>

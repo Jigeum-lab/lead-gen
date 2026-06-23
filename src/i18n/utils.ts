@@ -10,8 +10,18 @@ export function useT(locale: string | undefined) {
   return ui[getLang(locale)];
 }
 
-// 영어판이 존재하는 라우트 (번역 완료 시 추가 → 404 방지)
-export const EN_ROUTES = new Set<string>(["/"]);
+// 영어판이 존재하는 라우트 (번역 완료 시 추가 → 404 방지). 용어집(/glossary)은 Phase 4.
+export const EN_ROUTES = new Set<string>([
+  "/",
+  "/solutions/",
+  "/pricing/",
+  "/partners/",
+  "/about/",
+  "/vision/",
+  "/contact/",
+  "/ai-commerce/",
+  "/ai-visibility-optimization/",
+]);
 
 function enPath(koPath: string): string {
   return "/en" + (koPath === "/" ? "/" : koPath);
